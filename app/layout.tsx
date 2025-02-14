@@ -2,7 +2,8 @@
 import { HeroSection } from "@/components/hero-section";
 import "./globals.css";
 
-import {Navbar} from "@/components/navbar";
+import {Navbar} from '@/components/navbar';
+
 export default function RootLayout({
   children,
 }: Readonly<{
