@@ -9,6 +9,10 @@ export default {
   ],
   theme: {
   	extend: {
+		fontFamily: {
+        body: ["Inter", "sans-serif"], // Define the 'font-body' class
+        heading: ["Poppins", "sans-serif"], // Define the 'font-heading' class
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
