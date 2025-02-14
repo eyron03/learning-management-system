@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  TEACHER
+  STUDENT
+}
+
+enum GradeLevel {
+  GRADE_1
+  GRADE_2
+  GRADE_3
+  GRADE_4
+  GRADE_5
+  GRADE_6
+}
+
+model Admin {
+  id       String   @id @default(cuid())
+  email    String   @unique
+  username String   @unique
+  password String
+  role     UserRole @default(SUPER_ADMIN)
+}
+
+model Teacher {
+  id            String       @id @default(cuid()) 
+  email         String       @unique
+  username      String       @unique
+  password      String
+  phone_number  String
+  address       String
+  date_of_birth DateTime
+  grade_level   GradeLevel
+  subject       Subject?     @relation("TeacherSubject")  
+  classroom     Classroom?   @relation("TeacherClassroom")
+}
+
+model Student {
+  id            String      @id @default(cuid())
+  email         String      @unique
+  username      String      @unique
+  password      String
+  phone_number  String
+  date_of_birth DateTime
+  grade_level   GradeLevel
+  classroom     Classroom   @relation(fields: [classroomId], references: [id])
+  classroomId   String
+}
+
+model Subject {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  teacher   Teacher? @relation("TeacherSubject", fields: [teacherId], references: [id])
+  teacherId String?  @unique
+
+}
+
+model Classroom {
+  id         String     @id @default(cuid())
+  name       String     @unique
+  grade_level GradeLevel
+  teacher    Teacher?   @relation("TeacherClassroom", fields: [teacherId], references: [id])
+  teacherId  String?  @unique
+  students   Student[]
+}
