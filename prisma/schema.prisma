@@ -44,6 +44,7 @@ model Teacher {
   password      String
   phone_number  String
   address       String
+  role     UserRole @default(TEACHER)
   date_of_birth DateTime
   grade_level   GradeLevel
   subject       Subject?     @relation("TeacherSubject")  
@@ -55,6 +56,7 @@ model Student {
   email         String      @unique
   username      String      @unique
   password      String
+  role          UserRole     @default(STUDENT)
   phone_number  String
   date_of_birth DateTime
   grade_level   GradeLevel
