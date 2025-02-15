@@ -20,3 +20,4 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }
+//
