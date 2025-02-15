@@ -23,13 +23,13 @@ export const adminData = {
 
   async create(data: AdminCreateInput): Promise<Admin> {
     try {
-      // Validate role before creating admin
+      
       if (!Object.values(UserRole).includes(data.role)) {
         throw new Error(`Invalid role: ${data.role}`);
       }
 
       const hashedPassword = await bcrypt.hash(data.password, 10);
-      const generatedUsername = await generateUsername(data.role); // ✅ Generate Username
+      const generatedUsername = await generateUsername(data.role); 
 
       return await prisma.admin.create({
         data: {
