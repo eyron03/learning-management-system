@@ -1,12 +1,9 @@
-import React from 'react'
-import { AdminSidebar } from '../../_components/admin-sidebar'
-
 const AdminDashboard = () => {
   return (
-    <div>
-      <AdminSidebar/>
-      </div>
-  )
-}
+    <div className="text-xl font-semibold text-black">
+      Coming soon
+    </div>
+  );
+};
 
-export default AdminDashboard
+export default AdminDashboard;
