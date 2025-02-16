@@ -1,7 +1,7 @@
 
-import { HeroSection } from "@/components/hero-section";
+
 import "./globals.css";
-import { Navbar } from "@/components/navbar-menu";
+
 
 
 export default function RootLayout({
@@ -12,8 +12,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-       <Navbar/>
-        <HeroSection/>
+
         {children}
       </body>
     </html>
