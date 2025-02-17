@@ -24,7 +24,7 @@ const items = [
   },
   {
     title: "Teachers",
-    url: "#",
+    url: "/super-admin/teachers",
     icon: Users,
   },
   {
