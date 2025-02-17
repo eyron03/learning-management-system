@@ -1,5 +1,3 @@
-// lib/functions/pagination.ts
-
 type PaginationParams<T> = {
     currentPage: number;
     itemsPerPage: number;

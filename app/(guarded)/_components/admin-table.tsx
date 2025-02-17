@@ -14,6 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
+import { Skeleton } from "@/components/ui/skeleton"
 
 type Admin = {
   id: string
@@ -73,11 +74,14 @@ export default function AdminTable() {
           </TableHeader>
           <TableBody>
             {loading ? (
-              <TableRow>
-                <TableCell colSpan={4} className="text-center py-4">
-                  <Loader2 className="animate-spin inline-block w-6 h-6 text-gray-500" />
-                </TableCell>
-              </TableRow>
+              Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell><Skeleton className="h-4 w-[250px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell className="text-center"><Skeleton className="h-8 w-8 rounded-full mx-auto" /></TableCell>
+                </TableRow>
+              ))
             ) : paginatedAdmins.length > 0 ? (
               paginatedAdmins.map((admin, index) => (
                 <TableRow
