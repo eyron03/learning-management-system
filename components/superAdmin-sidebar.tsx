@@ -29,17 +29,17 @@ const items = [
   },
   {
     title: "Students",
-    url: "#",
+    url: "/super-admin/students",
     icon: GraduationCap,
   },
   {
     title: "Subjects",
-    url: "#",
+    url: "/super-admin/subjects",
     icon: BookOpen,
   },
   {
     title: "Classroom",
-    url: "#",
+    url: "/super-admin/classroom",
     icon: School,
   },
 ]
