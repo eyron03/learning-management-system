@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Teachers = () => {
+const TeachersPage = () => {
   return (
-    <div>Teachers</div>
+    <div className="w-full h-full flex items-center justify-center">
+      Coming soon
+      </div>
   )
 }
 
-export default Teachers
+export default TeachersPage

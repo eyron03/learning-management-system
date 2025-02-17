@@ -1,9 +1,10 @@
-const AdminDashboard = () => {
-  console.log("AdminDashboard component rendered");
-
+const DashboardPage = () => {
+  
   return (
-    <div className="w-full h-full flex items-center justify-center">Coming soon</div>
+    <div className="w-full h-full flex items-center justify-center">
+      Coming soon
+      </div>
   );
 };
 
-export default AdminDashboard;
+export default DashboardPage;

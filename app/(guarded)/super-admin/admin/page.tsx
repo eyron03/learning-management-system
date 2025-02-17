@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Admin = () => {
+const AdminPage = () => {
   return (
-    <div>Admin</div>
+    <div className="w-full h-full flex items-center justify-center">
+    Coming soon
+    </div>
   )
 }
 
-export default Admin
+export default AdminPage
