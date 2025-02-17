@@ -1,61 +1,61 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { adminData } from "@/data/admin";
 
 export async function GET(
-  req: NextApiRequest,
-  res: NextApiResponse
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = req.query;
+    const id = params.id;
 
-    if (!id || typeof id !== "string") {
-      return res.status(400).json({ error: "Admin ID is required" });
+    if (!id) {
+      return NextResponse.json({ error: "Admin ID is required" }, { status: 400 });
     }
 
     const admin = await adminData.findById(id);
     if (!admin) {
-      return res.status(404).json({ error: "Admin not found" });
+      return NextResponse.json({ error: "Admin not found" }, { status: 404 });
     }
 
-    return res.status(200).json(admin);
+    return NextResponse.json(admin, { status: 200 });
   } catch (error) {
-    return res.status(500).json({ error: `Error fetching admin: ${(error as Error).message}` });
+    return NextResponse.json({ error: `Error fetching admin: ${(error as Error).message}` }, { status: 500 });
   }
 }
 
 export async function PUT(
-  req: NextApiRequest,
-  res: NextApiResponse
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = req.query;
+    const id = params.id;
 
-    if (!id || typeof id !== "string") {
-      return res.status(400).json({ error: "Admin ID is required" });
+    if (!id) {
+      return NextResponse.json({ error: "Admin ID is required" }, { status: 400 });
     }
 
-    const body = req.body;
+    const body = await req.json();
     const updatedAdmin = await adminData.update(id, body);
-    return res.status(200).json(updatedAdmin);
+    return NextResponse.json(updatedAdmin, { status: 200 });
   } catch (error) {
-    return res.status(500).json({ error: `Error updating admin: ${(error as Error).message}` });
+    return NextResponse.json({ error: `Error updating admin: ${(error as Error).message}` }, { status: 500 });
   }
 }
 
 export async function DELETE(
-  req: NextApiRequest,
-  res: NextApiResponse
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = req.query;
+    const id = params.id;
 
-    if (!id || typeof id !== "string") {
-      return res.status(400).json({ error: "Admin ID is required" });
+    if (!id) {
+      return NextResponse.json({ error: "Admin ID is required" }, { status: 400 });
     }
 
     await adminData.delete(id);
-    return res.status(200).json({ message: "Admin deleted successfully" });
+    return NextResponse.json({ message: "Admin deleted successfully" }, { status: 200 });
   } catch (error) {
-    return res.status(500).json({ error: `Error deleting admin: ${(error as Error).message}` });
+    return NextResponse.json({ error: `Error deleting admin: ${(error as Error).message}` }, { status: 500 });
   }
 }
