@@ -14,12 +14,12 @@ import {
 const items = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "/super-admin/dashboard",
     icon: LayoutDashboard,
   },
   {
     title: "Admin",
-    url: "#",
+    url: "/super-admin/admin",
     icon: UserCog,
   },
   {
