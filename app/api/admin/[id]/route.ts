@@ -1,64 +1,61 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
 import { adminData } from "@/data/admin";
 
-// Asynchronous function to handle GET request
 export async function GET(
-  req: NextRequest,
-  context: { params: { id: string } }
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
   try {
-    const params = await context.params;
+    const { id } = req.query;
 
-    if (!params.id) {
-      return NextResponse.json({ error: "Admin ID is required" }, { status: 400 });
+    if (!id || typeof id !== "string") {
+      return res.status(400).json({ error: "Admin ID is required" });
     }
 
-    const admin = await adminData.findById(params.id);
+    const admin = await adminData.findById(id);
     if (!admin) {
-      return NextResponse.json({ error: "Admin not found" }, { status: 404 });
+      return res.status(404).json({ error: "Admin not found" });
     }
 
-    return NextResponse.json(admin, { status: 200 });
+    return res.status(200).json(admin);
   } catch (error) {
-    return NextResponse.json({ error: `Error fetching admin: ${(error as Error).message}` }, { status: 500 });
+    return res.status(500).json({ error: `Error fetching admin: ${(error as Error).message}` });
   }
 }
 
-// Asynchronous function to handle PUT request
 export async function PUT(
-  req: NextRequest,
-  context: { params: { id: string } }
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
   try {
-    const params = await context.params;
+    const { id } = req.query;
 
-    if (!params.id) {
-      return NextResponse.json({ error: "Admin ID is required" }, { status: 400 });
+    if (!id || typeof id !== "string") {
+      return res.status(400).json({ error: "Admin ID is required" });
     }
 
-    const body = await req.json();
-    const updatedAdmin = await adminData.update(params.id, body);
-    return NextResponse.json(updatedAdmin, { status: 200 });
+    const body = req.body;
+    const updatedAdmin = await adminData.update(id, body);
+    return res.status(200).json(updatedAdmin);
   } catch (error) {
-    return NextResponse.json({ error: `Error updating admin: ${(error as Error).message}` }, { status: 500 });
+    return res.status(500).json({ error: `Error updating admin: ${(error as Error).message}` });
   }
 }
 
-// Asynchronous function to handle DELETE request
 export async function DELETE(
-  req: NextRequest,
-  context: { params: { id: string } }
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
   try {
-    const params = await context.params;
+    const { id } = req.query;
 
-    if (!params.id) {
-      return NextResponse.json({ error: "Admin ID is required" }, { status: 400 });
+    if (!id || typeof id !== "string") {
+      return res.status(400).json({ error: "Admin ID is required" });
     }
 
-    await adminData.delete(params.id);
-    return NextResponse.json({ message: "Admin deleted successfully" }, { status: 200 });
+    await adminData.delete(id);
+    return res.status(200).json({ message: "Admin deleted successfully" });
   } catch (error) {
-    return NextResponse.json({ error: `Error deleting admin: ${(error as Error).message}` }, { status: 500 });
+    return res.status(500).json({ error: `Error deleting admin: ${(error as Error).message}` });
   }
 }
