@@ -1,4 +1,5 @@
-import { PrismaClient, GradeLevel } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import { GradeLevel } from "@/enums/grade-level";  // Import GradeLevel enum
 import { ClassroomCreateInput, ClassroomUpdateInput, ClassroomWhereUniqueInput, ClassroomWhereInput } from "@/types/classroom";
 
 const prisma = new PrismaClient();
@@ -9,7 +10,7 @@ export const classroomData = {
       return await prisma.classroom.create({
         data: {
           name: data.name,
-          grade_level: data.grade_level as GradeLevel, // Directly cast to GradeLevel enum
+          grade_level: data.grade_level as GradeLevel, // Use the imported GradeLevel enum
           teacherId: data.teacherId || null,
         },
       });
@@ -28,7 +29,7 @@ export const classroomData = {
         where,
         data: {
           name: data.name,
-          grade_level: data.grade_level as GradeLevel, // Directly cast to GradeLevel enum
+          grade_level: data.grade_level as GradeLevel, // Use the imported GradeLevel enum
           teacherId: data.teacherId ?? null,
         },
       });
