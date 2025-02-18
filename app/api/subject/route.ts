@@ -1,33 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSubject, findAllSubjects } from "@/data/subject";
-
+import { subjectData } from "@/data/subject";
 
 export async function GET() {
   try {
-    const subjects = await findAllSubjects(); 
+    const subjects = await subjectData.findAll();
     return NextResponse.json(subjects, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Unknown error" }, { status: 500 });
   }
 }
-
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, teacherId } = body;
-
-    if (!name || !teacherId) {
-      return NextResponse.json({ message: "Name and teacherId are required" }, { status: 400 });
-    }
-
-    const newSubject = await createSubject({
-      name,
-      teacherId,
-    });
-
-    return NextResponse.json(newSubject, { status: 201 });
-  } catch (error) {
-    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
+    const subject = await subjectData.create(body);
+    return NextResponse.json(subject, { status: 201 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Unknown error" }, { status: 500 });
   }
 }

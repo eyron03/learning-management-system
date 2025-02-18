@@ -5,7 +5,7 @@ import { generateUsername } from "@/lib/functions/generateUsername";
 import { AdminCreateInput, AdminUpdateInput, AdminWhereUniqueInput, AdminWhereInput } from "@/types/admin";
 
 export const adminData = {
-  // Create: Add a new Admin
+
   async create(data: AdminCreateInput): Promise<Admin> {
     try {
       if (!Object.values(UserRole).includes(data.role)) {
@@ -28,7 +28,6 @@ export const adminData = {
     }
   },
 
-  // Read: Find all admins
   async findAll(): Promise<Admin[]> {
     try {
       return await prisma.admin.findMany();
@@ -37,7 +36,7 @@ export const adminData = {
     }
   },
 
-  // Read: Find admin by ID
+ 
   async findById(id: string): Promise<Admin | null> {
     try {
       const uniqueInput: AdminWhereUniqueInput = { id };
@@ -47,7 +46,7 @@ export const adminData = {
     }
   },
 
-  // Update: Modify an existing admin
+  
   async update(id: string, data: AdminUpdateInput): Promise<Admin> {
     try {
       const uniqueInput: AdminWhereUniqueInput = { id };
@@ -57,7 +56,7 @@ export const adminData = {
     }
   },
 
-  // Delete: Remove an admin
+  
   async delete(id: string): Promise<Admin> {
     try {
       const uniqueInput: AdminWhereUniqueInput = { id };
@@ -67,7 +66,7 @@ export const adminData = {
     }
   },
 
-  // Search: Find admins based on filters
+  
   async search(filters: AdminWhereInput): Promise<Admin[]> {
     try {
       return await prisma.admin.findMany({ where: filters });
