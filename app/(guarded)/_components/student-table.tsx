@@ -1,11 +1,12 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Loader2, Trash } from "lucide-react"
-import { format } from 'date-fns'
+import { useEffect, useState } from "react";
+import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Loader2, Trash } from "lucide-react";
+import StudentForm from "./student-form";
+import { format } from "date-fns";
 import {
   Pagination,
   PaginationContent,
@@ -13,55 +14,57 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
-import { Skeleton } from "@/components/ui/skeleton"
+} from "@/components/ui/pagination";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Student = {
-  id: string
-  email: string
-  username: string
-  phone_number: string
-  date_of_birth: string
-  grade_level: string
-  classroom: string
-}
+  id: string;
+  email: string;
+  username: string;
+  role: string;
+  phone_number: string;
+  date_of_birth: string;
+  grade_level: string;
+  classroomId: string;
+};
 
-const ITEMS_PER_PAGE = 10
+const ITEMS_PER_PAGE = 10;
 
 export default function StudentTable() {
-  const [students, setStudents] = useState<Student[]>([])
-  const [loading, setLoading] = useState(true)
-  const [deleting, setDeleting] = useState<string | null>(null)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [students, setStudents] = useState<Student[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetchStudents()
-  }, [])
+    fetchStudents();
+  }, []);
 
   async function fetchStudents() {
-    setLoading(true)
+    setLoading(true);
     fetch("/api/students")
       .then((res) => res.json())
       .then((data) => setStudents(data))
-      .finally(() => setLoading(false))
+      .finally(() => setLoading(false));
   }
 
   async function handleDelete(id: string) {
     if (confirm("Are you sure you want to delete this student?")) {
-      setDeleting(id)
-      await fetch(`/api/students/${id}`, { method: "DELETE" })
-      setStudents(students.filter((student) => student.id !== id))
-      setDeleting(null)
+      setDeleting(id);
+      await fetch(`/api/students/${id}`, { method: "DELETE" });
+      setStudents(students.filter((student) => student.id !== id));
+      setDeleting(null);
     }
   }
 
-  const totalPages = Math.ceil(students.length / ITEMS_PER_PAGE)
-  const paginatedStudents = students.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+  const totalPages = Math.ceil(students.length / ITEMS_PER_PAGE);
+  const paginatedStudents = students.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   return (
     <div className="w-full px-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Student Management</h1>
+        <StudentForm onStudentAdded={fetchStudents} />
       </div>
 
       <ScrollArea className="w-full h-[500px] border rounded-lg">
@@ -73,7 +76,6 @@ export default function StudentTable() {
               <TableHead>Phone Number</TableHead>
               <TableHead>Date of Birth</TableHead>
               <TableHead>Grade Level</TableHead>
-              <TableHead>Classroom</TableHead>
               <TableHead className="text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -83,7 +85,6 @@ export default function StudentTable() {
                 <TableRow key={index}>
                   <TableCell><Skeleton className="h-4 w-[250px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
-                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
@@ -100,8 +101,7 @@ export default function StudentTable() {
                   <TableCell>{student.username}</TableCell>
                   <TableCell>{student.phone_number}</TableCell>
                   <TableCell>{student.date_of_birth ? format(new Date(student.date_of_birth), 'MM/dd/yyyy') : ''}</TableCell>
-                  <TableCell>{student.grade_level}</TableCell>
-                  <TableCell>{student.classroom}</TableCell>
+                  <TableCell className="uppercase font-semibold">{student.grade_level}</TableCell>
                   <TableCell className="text-center">
                     <Button
                       variant="destructive"
@@ -116,7 +116,7 @@ export default function StudentTable() {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-4 text-gray-500">
+                <TableCell colSpan={6} className="text-center py-4 text-gray-500">
                   No students found.
                 </TableCell>
               </TableRow>
@@ -160,5 +160,5 @@ export default function StudentTable() {
         </Pagination>
       </div>
     </div>
-  )
+  );
 }
