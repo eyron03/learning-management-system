@@ -1,9 +1,10 @@
 import React from 'react'
+import StudentTable from '../../_components/student-table'
 
 const StudentsPage = () => {
   return (
     <div className="w-full h-full flex items-center justify-center">
-    Coming soon
+    <StudentTable />
     </div>
   )
 }
