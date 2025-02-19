@@ -15,12 +15,14 @@ CREATE TABLE `Admin` (
 CREATE TABLE `Teacher` (
     `id` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `last_name` VARCHAR(191) NOT NULL,
     `username` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
     `phone_number` VARCHAR(191) NOT NULL,
     `address` VARCHAR(191) NOT NULL,
+    `role` ENUM('SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT') NOT NULL DEFAULT 'TEACHER',
     `date_of_birth` DATETIME(3) NOT NULL,
-    `grade_level` ENUM('GRADE_1', 'GRADE_2', 'GRADE_3', 'GRADE_4', 'GRADE_5', 'GRADE_6') NOT NULL,
 
     UNIQUE INDEX `Teacher_email_key`(`email`),
     UNIQUE INDEX `Teacher_username_key`(`username`),
@@ -31,8 +33,11 @@ CREATE TABLE `Teacher` (
 CREATE TABLE `Student` (
     `id` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `last_name` VARCHAR(191) NOT NULL,
     `username` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
+    `role` ENUM('SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT') NOT NULL DEFAULT 'STUDENT',
     `phone_number` VARCHAR(191) NOT NULL,
     `date_of_birth` DATETIME(3) NOT NULL,
     `grade_level` ENUM('GRADE_1', 'GRADE_2', 'GRADE_3', 'GRADE_4', 'GRADE_5', 'GRADE_6') NOT NULL,

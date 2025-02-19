@@ -40,6 +40,8 @@ model Admin {
 model Teacher {
   id            String       @id @default(cuid()) 
   email         String       @unique
+  name          String
+  last_name     String
   username      String       @unique
   password      String
   phone_number  String
@@ -53,6 +55,8 @@ model Teacher {
 model Student {
   id            String      @id @default(cuid())
   email         String      @unique
+  name          String
+  last_name     String
   username      String      @unique
   password      String
   role          UserRole     @default(STUDENT)
