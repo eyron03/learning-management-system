@@ -6,12 +6,13 @@ import { Student } from "@prisma/client";
 
 export const studentData = {
  
-  async findAll(filters?: StudentWhereInput): Promise<Student[]> {
+   async findAll(filters?: StudentWhereInput): Promise<Student[]> {
     return await prisma.student.findMany({
       where: filters,
       include: { classroom: true },
     });
   },
+
 
   async findById(uniqueInput: StudentWhereUniqueInput): Promise<Student | null> {
     return await prisma.student.findUnique({
@@ -34,7 +35,6 @@ export const studentData = {
         password: hashedPassword,
         phone_number: data.phone_number,
         date_of_birth: data.date_of_birth,
-        grade_level: data.grade_level,
         classroomId: data.classroomId,
         role: data.role ?? "STUDENT", 
       },

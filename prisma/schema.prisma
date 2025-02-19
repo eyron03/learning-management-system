@@ -62,7 +62,7 @@ model Student {
   role          UserRole     @default(STUDENT)
   phone_number  String
   date_of_birth DateTime
-  grade_level   GradeLevel
+ 
   classroom     Classroom   @relation(fields: [classroomId], references: [id])
   classroomId   String
 }

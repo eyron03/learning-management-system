@@ -40,7 +40,6 @@ CREATE TABLE `Student` (
     `role` ENUM('SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT') NOT NULL DEFAULT 'STUDENT',
     `phone_number` VARCHAR(191) NOT NULL,
     `date_of_birth` DATETIME(3) NOT NULL,
-    `grade_level` ENUM('GRADE_1', 'GRADE_2', 'GRADE_3', 'GRADE_4', 'GRADE_5', 'GRADE_6') NOT NULL,
     `classroomId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Student_email_key`(`email`),

@@ -1,37 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 
+interface Classroom {
+  id: string;
+  name: string;
+}
+
 export default function StudentForm({ onStudentAdded }: { onStudentAdded: () => void }) {
   const [open, setOpen] = useState(false);
+  const [classrooms, setClassrooms] = useState<Classroom[]>([]);
   const [formData, setFormData] = useState({
+    name: "",
+    last_name:"",
     email: "",
     username: "",
     password: "",
     phone_number: "",
     date_of_birth: "",
-    grade_level: "GRADE_1",
-   
+    classroomId: "",
   });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [date, setDate] = useState<Date | undefined>(undefined);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
+  // Fetch classrooms when modal opens
+  useEffect(() => {
+    if (open) {
+      fetch("/api/classroom")
+        .then((res) => res.json())
+        .then((data) => setClassrooms(data))
+        .catch((err) => console.error("Error fetching classrooms:", err));
+    }
+  }, [open]);
 
-  function handleGradeChange(value: string) {
-    setFormData({ ...formData, grade_level: value });
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   function handleDateChange(date: Date | undefined) {
@@ -46,14 +58,14 @@ export default function StudentForm({ onStudentAdded }: { onStudentAdded: () => 
     setLoading(true);
     setErrorMessage(null);
 
-    if (!formData.email || !formData.password || !formData.phone_number || !formData.date_of_birth || !formData.grade_level) {
+    if (!formData.email || !formData.password || !formData.phone_number || !formData.date_of_birth || !formData.classroomId) {
       setErrorMessage("Please fill in all required fields.");
       setLoading(false);
       return;
     }
 
     try {
-      await fetch("/api/students", {
+      await fetch("/api/student", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -82,20 +94,38 @@ export default function StudentForm({ onStudentAdded }: { onStudentAdded: () => 
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
+            <Label htmlFor="name">First Name</Label>
+            <Input id="name" type="text" name="name" value={formData.name} onChange={handleChange} required />
+          </div>
+          <div>
+            <Label htmlFor="last_name">Last Name</Label>
+            <Input id="last_name" type="text" name="last_name" value={formData.last_name} onChange={handleChange} required />
+          </div>
+          <div>
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" name="email" value={formData.email} onChange={handleChange} required />
           </div>
-
-          
-
           <div>
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" name="password" value={formData.password} onChange={handleChange} required />
           </div>
-
           <div>
             <Label htmlFor="phone_number">Phone Number</Label>
             <Input id="phone_number" type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} required />
+          </div>
+
+         
+          <div>
+            <Label htmlFor="classroomId">Classroom</Label>
+    <select id="classroomId" name="classroomId"value={formData.classroomId}onChange={handleChange} required className="border rounded p-2 w-full" aria-label="Select a classroom"  title="Select a classroom" >
+                  <option value="">Select a classroom</option>
+                  {classrooms.map((classroom) => (
+                    <option key={classroom.id} value={classroom.id}>
+                      {classroom.name}
+                    </option>
+                  ))}
+                </select>
+
           </div>
 
           <div>
@@ -120,24 +150,6 @@ export default function StudentForm({ onStudentAdded }: { onStudentAdded: () => 
               </PopoverContent>
             </Popover>
           </div>
-
-          <div>
-            <Label htmlFor="grade_level">Grade Level</Label>
-            <Select onValueChange={handleGradeChange} defaultValue={formData.grade_level}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select Grade Level" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="GRADE_1">Grade 1</SelectItem>
-                <SelectItem value="GRADE_2">Grade 2</SelectItem>
-                <SelectItem value="GRADE_3">Grade 3</SelectItem>
-                <SelectItem value="GRADE_4">Grade 4</SelectItem>
-                <SelectItem value="GRADE_5">Grade 5</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Classroom field will be implemented similarly */}
 
           <div className="flex justify-end">
             <Button type="submit" disabled={loading}>

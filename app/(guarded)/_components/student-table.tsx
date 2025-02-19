@@ -26,7 +26,6 @@ type Student = {
   role: string;
   phone_number: string;
   date_of_birth: string;
-  grade_level: string;
   classroomId: string;
 };
 
@@ -44,7 +43,7 @@ export default function StudentTable() {
 
   async function fetchStudents() {
     setLoading(true);
-    fetch("/api/students")
+    fetch("/api/student")
       .then((res) => res.json())
       .then((data) => setStudents(data))
       .finally(() => setLoading(false));
@@ -79,7 +78,6 @@ export default function StudentTable() {
               <TableHead>Username</TableHead>
               <TableHead>Phone Number</TableHead>
               <TableHead>Date of Birth</TableHead>
-              <TableHead>Grade Level</TableHead>
               <TableHead className="text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -93,7 +91,7 @@ export default function StudentTable() {
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
-                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                 
                   <TableCell className="text-center"><Skeleton className="h-8 w-8 rounded-full mx-auto" /></TableCell>
                 </TableRow>
               ))
@@ -109,7 +107,7 @@ export default function StudentTable() {
                   <TableCell>{student.username}</TableCell>
                   <TableCell>{student.phone_number}</TableCell>
                   <TableCell>{student.date_of_birth ? format(new Date(student.date_of_birth), 'MM/dd/yyyy') : ''}</TableCell>
-                  <TableCell className="uppercase font-semibold">{student.grade_level}</TableCell>
+                 
                   <TableCell className="text-center">
                     <Button
                       variant="destructive"
