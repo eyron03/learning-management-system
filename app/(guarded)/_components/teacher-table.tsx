@@ -19,6 +19,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 type Teacher = {
   id: string
+  name: string
+  last_name: string
   email: string
   username: string
   role: string
@@ -69,6 +71,8 @@ export default function TeacherTable() {
         <Table>
           <TableHeader>
             <TableRow className="bg-gray-100">
+            <TableHead>First Name</TableHead>
+            <TableHead>Last Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Username</TableHead>
               <TableHead>Phone Number</TableHead>
@@ -86,6 +90,8 @@ export default function TeacherTable() {
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell className="text-center"><Skeleton className="h-8 w-8 rounded-full mx-auto" /></TableCell>
                 </TableRow>
               ))
@@ -95,6 +101,8 @@ export default function TeacherTable() {
                   key={teacher.id}
                   className={`hover:bg-gray-50 transition ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
                 >
+                   <TableCell>{teacher.name}</TableCell>
+                   <TableCell>{teacher.last_name}</TableCell>
                   <TableCell>{teacher.email}</TableCell>
                   <TableCell>{teacher.username}</TableCell>
                   <TableCell>{teacher.phone_number}</TableCell>
@@ -114,7 +122,7 @@ export default function TeacherTable() {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={5} className="text-center py-4 text-gray-500">
+                <TableCell colSpan={8} className="text-center py-4 text-gray-500">
                   No teachers found.
                 </TableCell>
               </TableRow>

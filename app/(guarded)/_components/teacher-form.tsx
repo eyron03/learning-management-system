@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2, CalendarIcon } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -14,12 +14,14 @@ import { format } from "date-fns";
 export default function TeacherForm({ onTeacherAdded }: { onTeacherAdded: () => void }) {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
+    name: "",
+    last_name: "",
     email: "",
     password: "",
     phone_number: "",
     address: "",
     date_of_birth: "",
-    grade_level: "GRADE_1",
+ 
   });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -29,9 +31,6 @@ export default function TeacherForm({ onTeacherAdded }: { onTeacherAdded: () => 
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  function handleGradeChange(value: string) {
-    setFormData({ ...formData, grade_level: value });
-  }
 
   function handleDateChange(date: Date | undefined) {
     if (date) {
@@ -45,7 +44,7 @@ export default function TeacherForm({ onTeacherAdded }: { onTeacherAdded: () => 
     setLoading(true);
     setErrorMessage(null);
 
-    if (!formData.email || !formData.password || !formData.phone_number || !formData.address || !formData.date_of_birth || !formData.grade_level) {
+    if (!formData.email || !formData.password || !formData.phone_number || !formData.address || !formData.date_of_birth ) {
       setErrorMessage("Please fill in all required fields.");
       setLoading(false);
       return;
@@ -80,6 +79,14 @@ export default function TeacherForm({ onTeacherAdded }: { onTeacherAdded: () => 
         {errorMessage && <div className="text-red-600">{errorMessage}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+            <Label htmlFor="name">First Name</Label>
+            <Input id="name" type="name" name="name" value={formData.name} onChange={handleChange} required />
+          </div>
+          <div>
+            <Label htmlFor="last_name">Last Name</Label>
+            <Input id="last_name" type="last_name" name="last_name" value={formData.last_name} onChange={handleChange} required />
+          </div>
           <div>
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" name="email" value={formData.email} onChange={handleChange} required />
@@ -124,21 +131,7 @@ export default function TeacherForm({ onTeacherAdded }: { onTeacherAdded: () => 
             </Popover>
           </div>
 
-          <div>
-            <Label htmlFor="grade_level">Grade Level</Label>
-            <Select onValueChange={handleGradeChange} defaultValue={formData.grade_level}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select Grade Level" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="GRADE_1">Grade 1</SelectItem>
-                <SelectItem value="GRADE_2">Grade 2</SelectItem>
-                <SelectItem value="GRADE_3">Grade 3</SelectItem>
-                <SelectItem value="GRADE_4">Grade 4</SelectItem>
-                <SelectItem value="GRADE_5">Grade 5</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          
 
           <div className="flex justify-end">
             <Button type="submit" disabled={loading}>
