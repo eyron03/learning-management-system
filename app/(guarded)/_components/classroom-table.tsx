@@ -26,11 +26,11 @@ type Teacher = {
     address: string;
     role: string;
     date_of_birth: string;
-    name: string; // Add this property to match the usage in the code
+    name: string; 
   };
   
   type Classroom = {
-    teacher: Teacher | null; // Update the type to reflect that teacher can be an object or null
+    teacher: Teacher | null;
     id: string;
     name: string;
     grade_level: string;
