@@ -2,6 +2,8 @@ import { GradeLevel, UserRole } from "@prisma/client";
 
 export interface StudentCreateInput {
   email: string;
+  name: string;
+  last_name: string;
   password: string;
   phone_number: string;
   date_of_birth: Date;
@@ -12,6 +14,8 @@ export interface StudentCreateInput {
 
 export interface StudentUpdateInput {
   email?: string;
+  name?: string;
+  last_name?: string;
   password?: string;
   phone_number?: string;
   date_of_birth?: Date;
@@ -26,6 +30,8 @@ export interface StudentWhereUniqueInput {
 
 export interface StudentWhereInput {
   email?: string;
+  name?: string;
+  last_name?: string;
   phone_number?: string;
   grade_level?: GradeLevel;
   classroomId?: string;
@@ -34,6 +40,8 @@ export interface StudentWhereInput {
 
 export interface Student {
   email: string;
+  name: string;
+  last_name: string;
   password: string;
   phone_number: string;
   date_of_birth: Date;

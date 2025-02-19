@@ -13,7 +13,6 @@ export const studentData = {
     });
   },
 
-
   async findById(uniqueInput: StudentWhereUniqueInput): Promise<Student | null> {
     return await prisma.student.findUnique({
       where: uniqueInput,
@@ -21,7 +20,7 @@ export const studentData = {
     });
   },
 
-  // Create a new student
+  
   async create(data: StudentCreateInput): Promise<Student> {
     const hashedPassword = await bcrypt.hash(data.password, 10);
     const generatedUsername = await generateUsername("STUDENT");
@@ -29,19 +28,21 @@ export const studentData = {
     return await prisma.student.create({
       data: {
         email: data.email,
+        name: data.name,
+        last_name: data.last_name,
         username: generatedUsername,
         password: hashedPassword,
         phone_number: data.phone_number,
         date_of_birth: data.date_of_birth,
         grade_level: data.grade_level,
         classroomId: data.classroomId,
-        role: data.role ?? "STUDENT", // Default role if not provided
+        role: data.role ?? "STUDENT", 
       },
       include: { classroom: true },
     });
   },
 
-  // Update an existing student's information
+  
   async update(id: string, data: StudentUpdateInput): Promise<Student> {
     return await prisma.student.update({
       where: { id },
@@ -50,7 +51,7 @@ export const studentData = {
     });
   },
 
-  // Delete a student by their unique ID
+  
   async delete(id: string): Promise<Student> {
     return await prisma.student.delete({ where: { id } });
   },

@@ -101,7 +101,8 @@ type Teacher = {
                     className={`hover:bg-gray-50 transition ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
                   >
                     <TableCell>{classroom.name}</TableCell>
-                    <TableCell>{classroom.grade_level}</TableCell>
+                    <TableCell> {classroom.grade_level.replace("GRADE_", "Grade ")}</TableCell>
+
                     <TableCell>{classroom.teacher ? classroom.teacher.name : "Unassigned"}</TableCell>
   
                     <TableCell className="text-center">
