@@ -30,11 +30,16 @@ export const subjectData = {
 
   findAll: async () => {
     try {
-      return await prisma.subject.findMany();
+      return await prisma.subject.findMany({
+        include: {
+          teacher: true, 
+        },
+      });
     } catch (error: unknown) {
       throw new Error(error instanceof Error ? "Error finding all subjects: " + error.message : "Unknown error occurred while finding all subjects");
     }
   },
+  
 
   find: async (where: SubjectWhereInput) => {
     try {

@@ -48,7 +48,7 @@ model Teacher {
   address       String
   role     UserRole @default(TEACHER)
   date_of_birth DateTime
-  subject       Subject?     @relation("TeacherSubject")  
+  subjects      Subject[]
   classroom     Classroom?   @relation("TeacherClassroom")
 }
 
@@ -70,8 +70,8 @@ model Student {
 model Subject {
   id        String   @id @default(cuid())
   name      String   @unique
-  teacher   Teacher? @relation("TeacherSubject", fields: [teacherId], references: [id])
-  teacherId String?  @unique
+  teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  teacherId String?  
 
 }
 

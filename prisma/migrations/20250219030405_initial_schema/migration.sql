@@ -55,7 +55,6 @@ CREATE TABLE `Subject` (
     `teacherId` VARCHAR(191) NULL,
 
     UNIQUE INDEX `Subject_name_key`(`name`),
-    UNIQUE INDEX `Subject_teacherId_key`(`teacherId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
