@@ -46,7 +46,6 @@ model Teacher {
   address       String
   role     UserRole @default(TEACHER)
   date_of_birth DateTime
-  grade_level   GradeLevel
   subject       Subject?     @relation("TeacherSubject")  
   classroom     Classroom?   @relation("TeacherClassroom")
 }
