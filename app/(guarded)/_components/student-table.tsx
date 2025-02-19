@@ -19,6 +19,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 type Student = {
   id: string;
+  name: string;
+  last_name: string;
   email: string;
   username: string;
   role: string;
@@ -71,6 +73,8 @@ export default function StudentTable() {
         <Table>
           <TableHeader>
             <TableRow className="bg-gray-100">
+            <TableHead>First Name</TableHead>
+            <TableHead>Last Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Username</TableHead>
               <TableHead>Phone Number</TableHead>
@@ -88,6 +92,8 @@ export default function StudentTable() {
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
                   <TableCell className="text-center"><Skeleton className="h-8 w-8 rounded-full mx-auto" /></TableCell>
                 </TableRow>
               ))
@@ -97,6 +103,8 @@ export default function StudentTable() {
                   key={student.id}
                   className={`hover:bg-gray-50 transition ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
                 >
+                  <TableCell>{student.name}</TableCell>
+                  <TableCell>{student.last_name}</TableCell>
                   <TableCell>{student.email}</TableCell>
                   <TableCell>{student.username}</TableCell>
                   <TableCell>{student.phone_number}</TableCell>
