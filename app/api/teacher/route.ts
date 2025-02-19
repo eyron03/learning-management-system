@@ -3,8 +3,7 @@ import { teacherData } from "@/data/teacher";
 
 export async function GET() {
   try {
-    const teachers = await teacherData.findAll();
-    return NextResponse.json(teachers, { status: 200 });
+    return NextResponse.json(await teacherData.findAll(), { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }

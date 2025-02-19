@@ -16,16 +16,22 @@ export const teacherData = {
   async create(data: TeacherCreateInput): Promise<Teacher> {
     const hashedPassword = await bcrypt.hash(data.password, 10);
     const generatedUsername = await generateUsername("TEACHER");
-
+  
     return await prisma.teacher.create({
       data: {
-        ...data,
+        email: data.email,
+        name: data.name, 
+        last_name: data.last_name, 
         username: generatedUsername,
         password: hashedPassword,
+        phone_number: data.phone_number,
+        address: data.address,
+        date_of_birth: data.date_of_birth,
         role: data.role ?? "TEACHER",
       },
     });
   },
+  
 
   async update(id: string, data: Prisma.TeacherUpdateInput): Promise<Teacher> {
     return await prisma.teacher.update({ where: { id }, data });
