@@ -56,13 +56,12 @@ enum NameSuffix {
   V
 }
 
-
 model Admin {
-  id         String   @id @default(cuid())
-  email      String   @unique
-  username   String   @unique
-  password   String
-  role       UserRole @default(SUPER_ADMIN)
+  id       String   @id @default(cuid())
+  email    String   @unique
+  username String   @unique
+  password String
+  role     UserRole @default(SUPER_ADMIN)
 }
 
 model Teacher {
@@ -79,6 +78,7 @@ model Teacher {
   date_of_birth DateTime
   subjects      Subject[]
   classroom     Classroom? @relation("TeacherClassroom")
+  classroom_id  String?    @unique
 }
 
 model Student {
@@ -97,10 +97,10 @@ model Student {
 }
 
 model Subject {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  teacher     Teacher? @relation(fields: [teacher_id], references: [id])
-  teacher_id  String?  
+  id         String   @id @default(cuid())
+  name       String   @unique
+  teacher    Teacher? @relation(fields: [teacher_id], references: [id])
+  teacher_id String?  
 }
 
 model Classroom {
@@ -113,7 +113,7 @@ model Classroom {
 }
 
 model StudentApplication {
-  id                  String     @id @default(cuid())
+  id                  String      @id @default(cuid())
   first_name          String
   middle_name         String?
   last_name           String
@@ -123,7 +123,7 @@ model StudentApplication {
   date_of_birth       DateTime
   birth_place         String
   nationality         String
-  email               String      @unique
+  email              String   @unique
   phone_number       String
   tel_number         String?
 
@@ -132,14 +132,14 @@ model StudentApplication {
   postal_code         String
 
   father_id           String?
-  father              Parent?    @relation("Father", fields: [father_id], references: [id])
+  father             Parent?    @relation("Father", fields: [father_id], references: [id], onDelete: SetNull)
   mother_id           String?
-  mother              Parent?    @relation("Mother", fields: [mother_id], references: [id])
+  mother             Parent?    @relation("Mother", fields: [mother_id], references: [id], onDelete: SetNull)
   guardian_id         String?
-  guardian            Guardian?  @relation(fields: [guardian_id], references: [id])
+  guardian           Guardian?  @relation(fields: [guardian_id], references: [id], onDelete: SetNull)
 
   medical_record_id   String?
-  medical_record      MedicalRecord? @relation(fields: [medical_record_id], references: [id])
+  medical_record     MedicalRecord? @relation(fields: [medical_record_id], references: [id], onDelete: SetNull)
 
   admission           Admission?
 
@@ -148,18 +148,18 @@ model StudentApplication {
 }
 
 model Admission {
-  id                   String          @id @default(cuid())
-  student_id           String          @unique
-  student              StudentApplication @relation(fields: [student_id], references: [id])
+  id                   String               @id @default(cuid())
+  student_id           String               @unique
+  student              StudentApplication   @relation(fields: [student_id], references: [id], onDelete: Cascade)
 
   admission_type       AdmissionType
   intended_grade_level String
   previous_school_id   String?  
-  previous_school      School?         @relation(fields: [previous_school_id], references: [id])
+  previous_school      School?             @relation(fields: [previous_school_id], references: [id], onDelete: SetNull)
 
-  status               AdmissionStatus @default(PENDING)
-  created_at           DateTime        @default(now())
-  updated_at           DateTime        @updatedAt
+  status               AdmissionStatus     @default(PENDING)
+  created_at           DateTime            @default(now())
+  updated_at           DateTime            @updatedAt
 }
 
 model Parent {
@@ -178,7 +178,7 @@ model Guardian {
   id                   String    @id @default(cuid())
   name                 String
   relation             String
-  phone_number              String
+  phone_number         String
   students             StudentApplication[]
 }
 

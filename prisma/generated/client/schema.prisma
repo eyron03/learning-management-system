@@ -78,6 +78,7 @@ model Teacher {
   date_of_birth DateTime
   subjects      Subject[]
   classroom     Classroom? @relation("TeacherClassroom")
+  classroom_id  String?    @unique
 }
 
 model Student {
@@ -131,14 +132,14 @@ model StudentApplication {
   postal_code       String
 
   father_id   String?
-  father      Parent?   @relation("Father", fields: [father_id], references: [id])
+  father      Parent?   @relation("Father", fields: [father_id], references: [id], onDelete: SetNull)
   mother_id   String?
-  mother      Parent?   @relation("Mother", fields: [mother_id], references: [id])
+  mother      Parent?   @relation("Mother", fields: [mother_id], references: [id], onDelete: SetNull)
   guardian_id String?
-  guardian    Guardian? @relation(fields: [guardian_id], references: [id])
+  guardian    Guardian? @relation(fields: [guardian_id], references: [id], onDelete: SetNull)
 
   medical_record_id String?
-  medical_record    MedicalRecord? @relation(fields: [medical_record_id], references: [id])
+  medical_record    MedicalRecord? @relation(fields: [medical_record_id], references: [id], onDelete: SetNull)
 
   admission Admission?
 
@@ -149,12 +150,12 @@ model StudentApplication {
 model Admission {
   id         String             @id @default(cuid())
   student_id String             @unique
-  student    StudentApplication @relation(fields: [student_id], references: [id])
+  student    StudentApplication @relation(fields: [student_id], references: [id], onDelete: Cascade)
 
   admission_type       AdmissionType
   intended_grade_level String
   previous_school_id   String?
-  previous_school      School?       @relation(fields: [previous_school_id], references: [id])
+  previous_school      School?       @relation(fields: [previous_school_id], references: [id], onDelete: SetNull)
 
   status     AdmissionStatus @default(PENDING)
   created_at DateTime        @default(now())

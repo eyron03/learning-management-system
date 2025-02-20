@@ -24,9 +24,11 @@ CREATE TABLE `Teacher` (
     `address` VARCHAR(191) NOT NULL,
     `role` ENUM('SUPER_ADMIN', 'ADMIN', 'TEACHER', 'STUDENT') NOT NULL DEFAULT 'TEACHER',
     `date_of_birth` DATETIME(3) NOT NULL,
+    `classroom_id` VARCHAR(191) NULL,
 
     UNIQUE INDEX `Teacher_email_key`(`email`),
     UNIQUE INDEX `Teacher_username_key`(`username`),
+    UNIQUE INDEX `Teacher_classroom_id_key`(`classroom_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -180,7 +182,7 @@ ALTER TABLE `StudentApplication` ADD CONSTRAINT `StudentApplication_guardian_id_
 ALTER TABLE `StudentApplication` ADD CONSTRAINT `StudentApplication_medical_record_id_fkey` FOREIGN KEY (`medical_record_id`) REFERENCES `MedicalRecord`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Admission` ADD CONSTRAINT `Admission_student_id_fkey` FOREIGN KEY (`student_id`) REFERENCES `StudentApplication`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Admission` ADD CONSTRAINT `Admission_student_id_fkey` FOREIGN KEY (`student_id`) REFERENCES `StudentApplication`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Admission` ADD CONSTRAINT `Admission_previous_school_id_fkey` FOREIGN KEY (`previous_school_id`) REFERENCES `School`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

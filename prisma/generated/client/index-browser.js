@@ -136,7 +136,8 @@ exports.Prisma.TeacherScalarFieldEnum = {
   phone_number: 'phone_number',
   address: 'address',
   role: 'role',
-  date_of_birth: 'date_of_birth'
+  date_of_birth: 'date_of_birth',
+  classroom_id: 'classroom_id'
 };
 
 exports.Prisma.StudentScalarFieldEnum = {
@@ -259,7 +260,8 @@ exports.Prisma.TeacherOrderByRelevanceFieldEnum = {
   username: 'username',
   password: 'password',
   phone_number: 'phone_number',
-  address: 'address'
+  address: 'address',
+  classroom_id: 'classroom_id'
 };
 
 exports.Prisma.StudentOrderByRelevanceFieldEnum = {
