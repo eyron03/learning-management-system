@@ -129,39 +129,109 @@ exports.Prisma.TeacherScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  middle_name: 'middle_name',
   last_name: 'last_name',
   username: 'username',
   password: 'password',
   phone_number: 'phone_number',
   address: 'address',
   role: 'role',
-  date_of_birth: 'date_of_birth'
+  date_of_birth: 'date_of_birth',
+  classroom_id: 'classroom_id'
 };
 
 exports.Prisma.StudentScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  middle_name: 'middle_name',
   last_name: 'last_name',
   username: 'username',
   password: 'password',
   role: 'role',
   phone_number: 'phone_number',
   date_of_birth: 'date_of_birth',
-  classroomId: 'classroomId'
+  classroom_id: 'classroom_id'
 };
 
 exports.Prisma.SubjectScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  teacherId: 'teacherId'
+  teacher_id: 'teacher_id'
 };
 
 exports.Prisma.ClassroomScalarFieldEnum = {
   id: 'id',
   name: 'name',
   grade_level: 'grade_level',
-  teacherId: 'teacherId'
+  teacher_id: 'teacher_id'
+};
+
+exports.Prisma.StudentApplicationScalarFieldEnum = {
+  id: 'id',
+  first_name: 'first_name',
+  middle_name: 'middle_name',
+  last_name: 'last_name',
+  suffix: 'suffix',
+  gender: 'gender',
+  civil_status: 'civil_status',
+  date_of_birth: 'date_of_birth',
+  birth_place: 'birth_place',
+  nationality: 'nationality',
+  email: 'email',
+  phone_number: 'phone_number',
+  tel_number: 'tel_number',
+  permanent_address: 'permanent_address',
+  current_address: 'current_address',
+  postal_code: 'postal_code',
+  father_id: 'father_id',
+  mother_id: 'mother_id',
+  guardian_id: 'guardian_id',
+  medical_record_id: 'medical_record_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.AdmissionScalarFieldEnum = {
+  id: 'id',
+  student_id: 'student_id',
+  admission_type: 'admission_type',
+  intended_grade_level: 'intended_grade_level',
+  previous_school_id: 'previous_school_id',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ParentScalarFieldEnum = {
+  id: 'id',
+  first_name: 'first_name',
+  middle_name: 'middle_name',
+  last_name: 'last_name',
+  occupation: 'occupation',
+  annual_income: 'annual_income'
+};
+
+exports.Prisma.GuardianScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  relation: 'relation',
+  phone_number: 'phone_number'
+};
+
+exports.Prisma.MedicalRecordScalarFieldEnum = {
+  id: 'id',
+  has_medical_condition: 'has_medical_condition',
+  medical_condition: 'medical_condition'
+};
+
+exports.Prisma.SchoolScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  address: 'address',
+  last_year_level: 'last_year_level',
+  last_school_year: 'last_school_year',
+  general_weighted_average: 'general_weighted_average'
 };
 
 exports.Prisma.SortOrder = {
@@ -176,43 +246,101 @@ exports.Prisma.AdminOrderByRelevanceFieldEnum = {
   password: 'password'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 exports.Prisma.TeacherOrderByRelevanceFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  middle_name: 'middle_name',
   last_name: 'last_name',
   username: 'username',
   password: 'password',
   phone_number: 'phone_number',
-  address: 'address'
+  address: 'address',
+  classroom_id: 'classroom_id'
 };
 
 exports.Prisma.StudentOrderByRelevanceFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  middle_name: 'middle_name',
   last_name: 'last_name',
   username: 'username',
   password: 'password',
   phone_number: 'phone_number',
-  classroomId: 'classroomId'
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
+  classroom_id: 'classroom_id'
 };
 
 exports.Prisma.SubjectOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
-  teacherId: 'teacherId'
+  teacher_id: 'teacher_id'
 };
 
 exports.Prisma.ClassroomOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
-  teacherId: 'teacherId'
+  teacher_id: 'teacher_id'
+};
+
+exports.Prisma.StudentApplicationOrderByRelevanceFieldEnum = {
+  id: 'id',
+  first_name: 'first_name',
+  middle_name: 'middle_name',
+  last_name: 'last_name',
+  gender: 'gender',
+  birth_place: 'birth_place',
+  nationality: 'nationality',
+  email: 'email',
+  phone_number: 'phone_number',
+  tel_number: 'tel_number',
+  permanent_address: 'permanent_address',
+  current_address: 'current_address',
+  postal_code: 'postal_code',
+  father_id: 'father_id',
+  mother_id: 'mother_id',
+  guardian_id: 'guardian_id',
+  medical_record_id: 'medical_record_id'
+};
+
+exports.Prisma.AdmissionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  student_id: 'student_id',
+  intended_grade_level: 'intended_grade_level',
+  previous_school_id: 'previous_school_id'
+};
+
+exports.Prisma.ParentOrderByRelevanceFieldEnum = {
+  id: 'id',
+  first_name: 'first_name',
+  middle_name: 'middle_name',
+  last_name: 'last_name',
+  occupation: 'occupation'
+};
+
+exports.Prisma.GuardianOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  relation: 'relation',
+  phone_number: 'phone_number'
+};
+
+exports.Prisma.MedicalRecordOrderByRelevanceFieldEnum = {
+  id: 'id',
+  medical_condition: 'medical_condition'
+};
+
+exports.Prisma.SchoolOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  address: 'address',
+  last_year_level: 'last_year_level',
+  last_school_year: 'last_school_year'
 };
 exports.UserRole = exports.$Enums.UserRole = {
   SUPER_ADMIN: 'SUPER_ADMIN',
@@ -230,12 +358,47 @@ exports.GradeLevel = exports.$Enums.GradeLevel = {
   GRADE_6: 'GRADE_6'
 };
 
+exports.NameSuffix = exports.$Enums.NameSuffix = {
+  JR: 'JR',
+  SR: 'SR',
+  I: 'I',
+  II: 'II',
+  III: 'III',
+  IV: 'IV',
+  V: 'V'
+};
+
+exports.CivilStatus = exports.$Enums.CivilStatus = {
+  SINGLE: 'SINGLE',
+  MARRIED: 'MARRIED',
+  WIDOWED: 'WIDOWED',
+  SEPARATED: 'SEPARATED',
+  DIVORCED: 'DIVORCED'
+};
+
+exports.AdmissionType = exports.$Enums.AdmissionType = {
+  NEW_STUDENT: 'NEW_STUDENT',
+  TRANSFEREE: 'TRANSFEREE'
+};
+
+exports.AdmissionStatus = exports.$Enums.AdmissionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   Admin: 'Admin',
   Teacher: 'Teacher',
   Student: 'Student',
   Subject: 'Subject',
-  Classroom: 'Classroom'
+  Classroom: 'Classroom',
+  StudentApplication: 'StudentApplication',
+  Admission: 'Admission',
+  Parent: 'Parent',
+  Guardian: 'Guardian',
+  MedicalRecord: 'MedicalRecord',
+  School: 'School'
 };
 
 /**

@@ -20,8 +20,9 @@ export const teacherData = {
     return await prisma.teacher.create({
       data: {
         email: data.email,
-        name: data.name, 
-        last_name: data.last_name, 
+        name: data.name,
+        middle_name: data.middle_name, 
+        last_name: data.last_name,
         username: generatedUsername,
         password: hashedPassword,
         phone_number: data.phone_number,
@@ -31,7 +32,6 @@ export const teacherData = {
       },
     });
   },
-  
 
   async update(id: string, data: Prisma.TeacherUpdateInput): Promise<Teacher> {
     return await prisma.teacher.update({ where: { id }, data });
