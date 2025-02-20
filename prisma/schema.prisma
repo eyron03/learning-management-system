@@ -85,6 +85,7 @@ model Student {
   id            String    @id @default(cuid())
   email         String    @unique
   name          String
+  middle_name   String?
   last_name     String
   username      String    @unique
   password      String
@@ -122,10 +123,9 @@ model StudentApplication {
   date_of_birth       DateTime
   birth_place         String
   nationality         String
-  residency_status    String
   email               String      @unique
-  mobile_number       String
-  home_number         String?
+  phone_number       String
+  tel_number         String?
 
   permanent_address   String
   current_address     String
@@ -178,7 +178,7 @@ model Guardian {
   id                   String    @id @default(cuid())
   name                 String
   relation             String
-  contact              String
+  phone_number              String
   students             StudentApplication[]
 }
 
