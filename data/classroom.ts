@@ -10,8 +10,8 @@ export const classroomData = {
       return await prisma.classroom.create({
         data: {
           name: data.name,
-          grade_level: data.grade_level as GradeLevel, // Use the imported GradeLevel enum
-          teacherId: data.teacher_id || null,
+          grade_level: data.grade_level as GradeLevel, 
+          teacher_id: data.teacher_id || null,
         },
       });
     } catch (error: unknown) {
@@ -29,8 +29,8 @@ export const classroomData = {
         where,
         data: {
           name: data.name,
-          grade_level: data.grade_level as GradeLevel, // Use the imported GradeLevel enum
-          teacherId: data.teacher_id ?? null,
+          grade_level: data.grade_level as GradeLevel, 
+          teacher_id: data.teacher_id ?? null,
         },
       });
     } catch (error: unknown) {

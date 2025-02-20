@@ -27,6 +27,36 @@ enum GradeLevel {
   GRADE_6
 }
 
+enum AdmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum AdmissionType {
+  NEW_STUDENT
+  TRANSFEREE
+}
+
+enum CivilStatus {
+  SINGLE
+  MARRIED
+  WIDOWED
+  SEPARATED
+  DIVORCED
+}
+
+enum NameSuffix {
+  JR
+  SR
+  I
+  II
+  III
+  IV
+  V
+}
+
+
 model Admin {
   id         String   @id @default(cuid())
   email      String   @unique
@@ -39,6 +69,7 @@ model Teacher {
   id            String     @id @default(cuid()) 
   email         String     @unique
   name          String
+  middle_name   String?
   last_name     String
   username      String     @unique
   password      String
@@ -60,7 +91,6 @@ model Student {
   role          UserRole  @default(STUDENT)
   phone_number  String
   date_of_birth DateTime
- 
   classroom     Classroom @relation(fields: [classroom_id], references: [id])
   classroom_id  String
 }
@@ -167,33 +197,4 @@ model School {
   last_school_year     String?
   general_weighted_average Float?
   admissions          Admission[]
-}
-
-enum AdmissionStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
-enum AdmissionType {
-  NEW_STUDENT
-  TRANSFEREE
-}
-
-enum CivilStatus {
-  SINGLE
-  MARRIED
-  WIDOWED
-  SEPARATED
-  DIVORCED
-}
-
-enum NameSuffix {
-  JR
-  SR
-  I
-  II
-  III
-  IV
-  V
 }

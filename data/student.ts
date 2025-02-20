@@ -35,7 +35,7 @@ export const studentData = {
         password: hashedPassword,
         phone_number: data.phone_number,
         date_of_birth: data.date_of_birth,
-        classroomId: data.classroom_id,
+        classroom_id: data.classroom_id,
         role: data.role ?? "STUDENT", 
       },
       include: { classroom: true },
