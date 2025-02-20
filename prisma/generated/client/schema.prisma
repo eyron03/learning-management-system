@@ -68,7 +68,7 @@ model Teacher {
   id            String     @id @default(cuid())
   email         String     @unique
   name          String
-  middle_name   String?
+  m_name        String
   last_name     String
   username      String     @unique
   password      String
