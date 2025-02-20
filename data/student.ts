@@ -30,6 +30,7 @@ export const studentData = {
       data: {
         email: data.email,
         name: data.name,
+        middle_name: data.middle_name,
         last_name: data.last_name,
         username: generatedUsername,
         password: hashedPassword,
