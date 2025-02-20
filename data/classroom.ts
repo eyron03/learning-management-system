@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { GradeLevel } from "@/enums/grade-level";  // Import GradeLevel enum
+import { GradeLevel } from "@/helpers/enums"; 
 import { ClassroomCreateInput, ClassroomUpdateInput, ClassroomWhereUniqueInput, ClassroomWhereInput } from "@/types/classroom";
 
 const prisma = new PrismaClient();
