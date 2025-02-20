@@ -2,15 +2,15 @@ import { UserRole } from "@prisma/client";
 
 export interface TeacherCreateInput {
   email: string;
-  name: string;        // ✅ Added
-  last_name: string;   // ✅ Added
+  name: string;        
+  last_name: string;   
   password: string;
   phone_number: string;
   address: string;
   role?: UserRole;
   date_of_birth: Date;
-  subjectId?: string;   
-  classroomId?: string; 
+  subject_id?: string;   
+  classroom_id?: string; 
 }
 
 export interface TeacherUpdateInput {
@@ -22,8 +22,8 @@ export interface TeacherUpdateInput {
   address?: string;
   role?: UserRole;
   date_of_birth?: Date;
-  subjectId?: string;
-  classroomId?: string;
+  subject_id?: string;
+  classroom_id?: string;
 }
 export interface TeacherWhereUniqueInput {
   email: string;
@@ -37,8 +37,8 @@ export interface TeacherWhereInput {
   phone_number?: string;
   address?: string;
   date_of_birth?: Date;
-  subjectId?: string;
-  classroomId?: string;
+  subject_id?: string;
+  classroom_id?: string;
 }
 
 export interface Teacher {
@@ -51,6 +51,6 @@ export interface Teacher {
   address: string;
   role?: UserRole;
   date_of_birth: Date;
-  subjectId?: string;
-  classroomId?: string;
+  subject_id?: string;
+  classroom_id?: string;
 }

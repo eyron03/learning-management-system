@@ -2,12 +2,12 @@ import { Teacher } from "@prisma/client";
 
 export interface SubjectCreateInput {
   name: string;
-  teacherId?: string;
+  teacher_id?: string;
 }
 
 export interface SubjectUpdateInput {
   name?: string;
-  teacherId?: string;
+  teacher_id?: string;
 }
 
 export interface SubjectWhereUniqueInput {
@@ -16,12 +16,12 @@ export interface SubjectWhereUniqueInput {
 
 export interface SubjectWhereInput {
   name?: string;
-  teacherId?: string;
+  teacher_id?: string;
 }
 
 export interface Subject {
   id: string;
   name: string;
-  teacherId?: string;
+  teacher_id?: string;
   teacher?: Teacher | null;
 }

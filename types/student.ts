@@ -8,7 +8,7 @@ export interface StudentCreateInput {
   phone_number: string;
   date_of_birth: Date;
 
-  classroomId: string;
+  classroom_id: string;
   role?: UserRole;
 }
 
@@ -19,7 +19,7 @@ export interface StudentUpdateInput {
   password?: string;
   phone_number?: string;
   date_of_birth?: Date;
-  classroomId?: string;
+  classroom_id?: string;
   role?: UserRole;
 }
 
@@ -33,7 +33,7 @@ export interface StudentWhereInput {
   last_name?: string;
   phone_number?: string;
 
-  classroomId?: string;
+  classroom_id?: string;
   role?: UserRole;
 }
 
@@ -45,6 +45,6 @@ export interface Student {
   phone_number: string;
   date_of_birth: Date;
 
-  classroomId: string;
+  classroom_id: string;
   role?: UserRole;
 }

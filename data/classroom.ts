@@ -11,7 +11,7 @@ export const classroomData = {
         data: {
           name: data.name,
           grade_level: data.grade_level as GradeLevel, // Use the imported GradeLevel enum
-          teacherId: data.teacherId || null,
+          teacherId: data.teacher_id || null,
         },
       });
     } catch (error: unknown) {
@@ -30,7 +30,7 @@ export const classroomData = {
         data: {
           name: data.name,
           grade_level: data.grade_level as GradeLevel, // Use the imported GradeLevel enum
-          teacherId: data.teacherId ?? null,
+          teacherId: data.teacher_id ?? null,
         },
       });
     } catch (error: unknown) {
