@@ -9,7 +9,6 @@
     "postinstall": "prisma generate",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "lint": "next lint"
-    
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.3",
