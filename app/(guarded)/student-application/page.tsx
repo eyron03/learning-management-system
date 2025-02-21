@@ -1,12 +1,14 @@
 'use client';
 
+import StudentApplicationForm from '@/components/forms/student-application-form';
 import React from 'react'
 
-import StudentApplicationForm from '../_components/student-application-form'
+
 
 const StudentApplication = () => {
   return (
-    <div><StudentApplicationForm />
+    <div>
+      <StudentApplicationForm />
     </div>
    
   )

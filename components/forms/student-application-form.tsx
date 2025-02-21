@@ -1,26 +1,40 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
-import StudentApplication from "./StudentApplication";
-import Admission from "./Admission";
-import Parent from "./Parent";
-import Guardian from "./Guardian";
-import MedicalRecord from "./MedicalRecord";
-import School from "./School";
+import { 
+  Breadcrumb, 
+  BreadcrumbList, 
+  BreadcrumbItem, 
+  BreadcrumbLink, 
+  BreadcrumbSeparator, 
+  BreadcrumbPage 
+} from "@/components/ui/breadcrumb";
+import { Skeleton } from "@/components/ui/skeleton";
+
+import StudentApplication from "@/components/forms/student-application";
+import Admission from "@/components/forms/admission";
+import ParentGuardian from "@/components/forms/parent-guardian";
+import MedicalRecord from "@/components/forms/medical-record";
+import School from "@/components/forms/school";
 
 const steps = [
   "Student Application",
   "Admission",
-  "Parent",
-  "Guardian",
+  "Parent & Guardian",
   "Medical Record",
-  "School",
+  "School Information",
+  "Summary"
 ];
 
 export default function StudentApplicationForm() {
-  const [step, setStep] = useState(0);
-  const nextStep = () => setStep((prev) => Math.min(prev + 1, steps.length - 1));
-  const prevStep = () => setStep((prev) => Math.max(prev - 1, 0));
+  const [step, setStep] = useState<number | null>(null);
+
+  // Simulate loading
+  useEffect(() => {
+    setTimeout(() => setStep(0), 1000);
+  }, []);
+
+  const nextStep = () => setStep((prev) => (prev !== null ? Math.min(prev + 1, steps.length - 1) : 0));
+  const prevStep = () => setStep((prev) => (prev !== null ? Math.max(prev - 1, 0) : 0));
 
   const renderStep = () => {
     switch (step) {
@@ -29,38 +43,76 @@ export default function StudentApplicationForm() {
       case 1:
         return <Admission />;
       case 2:
-        return <Parent />;
+        return <ParentGuardian />;
       case 3:
-        return <Guardian />;
-      case 4:
         return <MedicalRecord />;
-      case 5:
+      case 4:
         return <School />;
       default:
         return <StudentApplication />;
     }
   };
 
+  if (step === null) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="max-w-3xl w-full mx-auto p-6 bg-white rounded-lg shadow-lg">
+        
+        <div className="mb-4">
+          <Skeleton className="h-6 w-1/2 mb-2" />
+          <Skeleton className="h-6 w-2/3" />
+        </div>
+        <div className="space-y-4">
+          <Skeleton className="h-12 w-full" />
+          <Skeleton className="h-12 w-full" />
+          <Skeleton className="h-12 w-full" />
+        </div>
+        <div className="flex justify-between mt-6">
+          <Skeleton className="h-10 w-24" />
+          <Skeleton className="h-10 w-24" />
+        </div>
+        </div>
+        </div>
+    );
+  }
+
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <Breadcrumb>
-        {steps.map((label, index) => (
-          <BreadcrumbItem key={index}>
-            <BreadcrumbLink className={step === index ? "text-blue-500" : ""}>{label}</BreadcrumbLink>
-          </BreadcrumbItem>
-        ))}
-      </Breadcrumb>
-      
-      {renderStep()}
-      
-      <div className="flex justify-between mt-4">
-        <Button onClick={prevStep} disabled={step === 0} variant="outline">
-          Previous
-        </Button>
-        <Button onClick={nextStep} disabled={step === steps.length - 1}>
-          Next
-        </Button>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="max-w-3xl w-full mx-auto p-6 bg-white rounded-lg shadow-lg">
+        
+        {/* Breadcrumb Navigation */}
+        <Breadcrumb>
+          <BreadcrumbList>
+            {steps.map((label, index) => (
+              <React.Fragment key={index}>
+                <BreadcrumbItem>
+                  {index === step ? (
+                    <BreadcrumbPage className="text-blue-500">{label}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink href={`#step-${index}`}>{label}</BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
+                {index < steps.length - 1 && <BreadcrumbSeparator key={`separator-${index}`} />}
+              </React.Fragment>
+            ))}
+          </BreadcrumbList>
+        </Breadcrumb>
+  
+        {/* Step Content */}
+        <div className="mt-6">{renderStep()}</div>
+  
+        {/* Navigation Buttons */}
+        <div className="flex justify-between mt-6">
+          <Button onClick={prevStep} disabled={step === 0} variant="outline">
+            Previous
+          </Button>
+          <Button onClick={nextStep} disabled={step === steps.length - 1}>
+            Next
+          </Button>
+        </div>
+  
       </div>
     </div>
   );
+  
 }
