@@ -1,101 +1,58 @@
-import { PrismaClient } from "@prisma/client";
-import {
-  MedicalRecordCreateInput,
-  MedicalRecordUpdateInput,
-  MedicalRecordWhereUniqueInput,
-  MedicalRecordWhereInput,
+import { prisma } from "@/lib/db";
+import { MedicalRecord } from "@prisma/client";
+import { 
+  MedicalRecordCreateInput, 
+  MedicalRecordUpdateInput, 
+  MedicalRecordWhereInput 
 } from "@/types/medical-record";
 
-const prisma = new PrismaClient();
-
 export const medicalRecordData = {
-  create: async (data: MedicalRecordCreateInput) => {
+
+  async create(data: MedicalRecordCreateInput): Promise<MedicalRecord> {
     try {
-      return await prisma.medicalRecord.create({
-        data: {
-          has_medical_condition: data.has_medical_condition,
-          medical_condition: data.medical_condition,
-          student_applications: data.studentApplicationIds
-            ? { connect: data.studentApplicationIds.map((id) => ({ id })) }
-            : undefined,
-        },
-        include: { student_applications: true },
-      });
-    } catch (error: unknown) {
-      throw new Error(
-        error instanceof Error
-          ? "Error creating medical record: " + error.message
-          : "Unknown error occurred while creating medical record"
-      );
+      return await prisma.medicalRecord.create({ data });
+    } catch (error) {
+      throw new Error(`Error creating medical record: ${(error as Error).message}`);
     }
   },
 
-  update: async (
-    where: MedicalRecordWhereUniqueInput,
-    data: MedicalRecordUpdateInput
-  ) => {
+  async findAll(): Promise<MedicalRecord[]> {
     try {
-      return await prisma.medicalRecord.update({
-        where,
-        data: {
-          has_medical_condition: data.has_medical_condition,
-          medical_condition: data.medical_condition,
-          student_applications: data.studentApplicationIds
-            ? { set: data.studentApplicationIds.map((id) => ({ id })) }
-            : undefined,
-        },
-        include: { student_applications: true },
-      });
-    } catch (error: unknown) {
-      throw new Error(
-        error instanceof Error
-          ? "Error updating medical record: " + error.message
-          : "Unknown error occurred while updating medical record"
-      );
+      return await prisma.medicalRecord.findMany();
+    } catch (error) {
+      throw new Error(`Error fetching medical records: ${(error as Error).message}`);
     }
   },
 
-  findById: async (where: MedicalRecordWhereUniqueInput) => {
+  async findById(id: string): Promise<MedicalRecord | null> {
     try {
-      return await prisma.medicalRecord.findUnique({
-        where,
-        include: { student_applications: true },
-      });
-    } catch (error: unknown) {
-      throw new Error(
-        error instanceof Error
-          ? "Error finding medical record: " + error.message
-          : "Unknown error occurred while finding medical record"
-      );
+      return await prisma.medicalRecord.findUnique({ where: { id } });
+    } catch (error) {
+      throw new Error(`Error finding medical record: ${(error as Error).message}`);
     }
   },
 
-  findAll: async (where?: MedicalRecordWhereInput) => {
+  async update(id: string, data: MedicalRecordUpdateInput): Promise<MedicalRecord> {
     try {
-      return await prisma.medicalRecord.findMany({
-        where,
-        include: { student_applications: true },
-      });
-    } catch (error: unknown) {
-      throw new Error(
-        error instanceof Error
-          ? "Error finding medical records: " + error.message
-          : "Unknown error occurred while finding medical records"
-      );
+      return await prisma.medicalRecord.update({ where: { id }, data });
+    } catch (error) {
+      throw new Error(`Error updating medical record: ${(error as Error).message}`);
     }
   },
-  
-  delete: async (where: MedicalRecordWhereUniqueInput) => {
+
+  async delete(id: string): Promise<MedicalRecord> {
     try {
-      return await prisma.medicalRecord.delete({
-        where,
-      });
-    } catch (error: unknown) {
-      throw new Error(
-        error instanceof Error
-          ? "Error deleting medical record: " + error.message
-          : "Unknown error occurred while deleting medical record"
-      );
+      return await prisma.medicalRecord.delete({ where: { id } });
+    } catch (error) {
+      throw new Error(`Error deleting medical record: ${(error as Error).message}`);
     }
   },
+
+  async search(filters: MedicalRecordWhereInput): Promise<MedicalRecord[]> {
+    try {
+      return await prisma.medicalRecord.findMany({ where: filters });
+    } catch (error) {
+      throw new Error(`Error searching medical records: ${(error as Error).message}`);
+    }
+  }
 };
