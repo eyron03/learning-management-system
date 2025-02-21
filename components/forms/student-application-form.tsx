@@ -12,17 +12,18 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import StudentApplication from "@/components/forms/student-application";
 import Admission from "@/components/forms/admission";
-import ParentGuardian from "@/components/forms/parent-guardian";
+import ParentGuardian from "@/components/forms/family-background";
 import MedicalRecord from "@/components/forms/medical-record";
 import School from "@/components/forms/school";
+import ReviewInformation from "@/components/forms/review-information";
 
 const steps = [
   "Student Application",
   "Admission",
-  "Parent & Guardian",
+  "Family Background",
   "Medical Record",
   "School Information",
-  "Summary"
+  "Review Information"
 ];
 
 export default function StudentApplicationForm() {
@@ -49,7 +50,32 @@ export default function StudentApplicationForm() {
       case 4:
         return <School />;
       default:
-        return <StudentApplication />;
+        return <ReviewInformation formData={{
+          student: {
+            first_name: "",
+            last_name: ""
+          },
+          admission: {
+            admission_type: "",
+            intended_grade_level: "",
+            previous_school: ""
+          },
+          familyBackground: {
+            father_first_name: "",
+            father_last_name: "",
+            mother_first_name: "",
+            mother_last_name: ""
+          },
+          medicalRecord: {
+            medical_conditions: ""
+          },
+          school: {
+            name: "",
+            address: ""
+          }
+        }} onSubmit={function (): void {
+          throw new Error("Function not implemented.");
+        } } />;
     }
   };
 

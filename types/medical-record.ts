@@ -1,6 +1,7 @@
 export interface MedicalRecordCreateInput {
   has_medical_condition?: boolean;
   medical_condition?: string;
+  student_application_id: string; 
 }
 
 export interface MedicalRecordUpdateInput {
@@ -15,4 +16,5 @@ export interface MedicalRecordWhereUniqueInput {
 export interface MedicalRecordWhereInput {
   has_medical_condition?: boolean;
   medical_condition?: string;
+  student_application_id?: string; 
 }
