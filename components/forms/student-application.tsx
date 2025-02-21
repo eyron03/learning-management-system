@@ -19,6 +19,9 @@ export default function StudentApplication() {
     email: "",
     phone_number: "",
     tel_number: "",
+    permanent_address: "",
+    current_address: "",
+    postal_code: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +89,10 @@ export default function StudentApplication() {
           <Input name="date_of_birth" type="date" placeholder="Date of Birth" onChange={handleChange} />
           <Input name="birth_place" placeholder="Birth Place" onChange={handleChange} />
           <Input name="nationality" placeholder="Nationality" onChange={handleChange} />
-          <Input name="email" type="email" placeholder="Email" onChange={handleChange} />
+              <Input name="email" type="email" placeholder="Email" onChange={handleChange} />
+              <Input name="permanent_address" placeholder="Permanent Address" onChange={handleChange} />
+              <Input name="current_address" placeholder="Current Address" onChange={handleChange} />
+              <Input name="postal_code" placeholder="Postal Code" onChange={handleChange} />
           <Input name="phone_number" placeholder="Phone Number" onChange={handleChange} />
           <Input name="tel_number" placeholder="Telephone Number (Optional)" onChange={handleChange} />
         </div>

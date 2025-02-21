@@ -113,72 +113,72 @@ model Classroom {
 }
 
 model StudentApplication {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
+  control_no    String
   first_name    String
   middle_name   String?
   last_name     String
   suffix        NameSuffix?
   gender        String
-  civil_status  CivilStatus?
   date_of_birth DateTime
   birth_place   String
   nationality   String
-  email         String       @unique
+  email         String      @unique
   phone_number  String
   tel_number    String?
-
-  permanent_address String
-  current_address   String
-  postal_code       String
-
-  father_id   String?
-  father      Parent?   @relation("Father", fields: [father_id], references: [id], onDelete: SetNull)
-  mother_id   String?
-  mother      Parent?   @relation("Mother", fields: [mother_id], references: [id], onDelete: SetNull)
-  guardian_id String?
-  guardian    Guardian? @relation(fields: [guardian_id], references: [id], onDelete: SetNull)
+  religion      String
 
   medical_record_id String?
   medical_record    MedicalRecord? @relation(fields: [medical_record_id], references: [id], onDelete: SetNull)
 
-  admission Admission?
+  admission         Admission?
+  home_address      HomeAddress?
+  family_background FamilyBackground?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
-model Admission {
-  id         String             @id @default(cuid())
-  student_id String             @unique
-  student    StudentApplication @relation(fields: [student_id], references: [id], onDelete: Cascade)
-
-  admission_type       AdmissionType
-  intended_grade_level String
-  previous_school_id   String?
-  previous_school      School?       @relation(fields: [previous_school_id], references: [id], onDelete: SetNull)
-
-  status     AdmissionStatus @default(PENDING)
-  created_at DateTime        @default(now())
-  updated_at DateTime        @updatedAt
+model HomeAddress {
+  id                     String             @id @default(cuid())
+  street                 String
+  city                   String
+  province               String
+  postal_code            String
+  student_application_id String             @unique
+  student_application    StudentApplication @relation(fields: [student_application_id], references: [id], onDelete: Cascade)
 }
 
-model Parent {
-  id                 String               @id @default(cuid())
-  first_name         String
-  middle_name        String?
-  last_name          String
-  occupation         String
-  annual_income      Float?
-  children_as_father StudentApplication[] @relation("Father")
-  children_as_mother StudentApplication[] @relation("Mother")
-}
+model FamilyBackground {
+  id String @id @default(cuid())
 
-model Guardian {
-  id           String               @id @default(cuid())
-  name         String
-  relation     String
-  phone_number String
-  students     StudentApplication[]
+  father_first_name    String?
+  father_middle_name   String?
+  father_last_name     String?
+  father_occupation    String?
+  father_civil_status  CivilStatus?
+  father_annual_income Float?
+  father_phone_number  String?
+  father_deceased      Boolean      @default(false)
+
+  mother_first_name    String?
+  mother_middle_name   String?
+  mother_last_name     String?
+  mother_occupation    String?
+  mother_civil_status  CivilStatus?
+  mother_annual_income Float?
+  mother_phone_number  String?
+  mother_deceased      Boolean      @default(false)
+
+  guardian_first_name    String?
+  guardian_middle_name   String?
+  guardian_last_name     String?
+  guardian_occupation    String?
+  guardian_annual_income Float?
+  guardian_phone_number  String?
+
+  student_application_id String             @unique
+  student_application    StudentApplication @relation(fields: [student_application_id], references: [id], onDelete: Cascade)
 }
 
 model MedicalRecord {
@@ -188,9 +188,22 @@ model MedicalRecord {
   student_applications  StudentApplication[]
 }
 
+model Admission {
+  id                   String             @id @default(cuid())
+  student_id           String             @unique
+  student              StudentApplication @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  admission_type       AdmissionType
+  intended_grade_level String
+  previous_school_id   String?
+  previous_school      School?            @relation(fields: [previous_school_id], references: [id], onDelete: SetNull)
+  status               AdmissionStatus    @default(PENDING)
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
+}
+
 model School {
   id                       String      @id @default(cuid())
-  name                     String
+  name                     String      @unique
   address                  String
   last_year_level          String?
   last_school_year         String?
