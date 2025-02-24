@@ -15,7 +15,6 @@ import Admission from "@/components/forms/admission";
 import ParentGuardian from "@/components/forms/family-background";
 import MedicalRecord from "@/components/forms/medical-record";
 import School from "@/components/forms/school";
-import ReviewInformation from "@/components/forms/review-information";
 
 const steps = [
   "Student Application",
@@ -50,32 +49,7 @@ export default function StudentApplicationForm() {
       case 4:
         return <School />;
       default:
-        return <ReviewInformation formData={{
-          student: {
-            first_name: "",
-            last_name: ""
-          },
-          admission: {
-            admission_type: "",
-            intended_grade_level: "",
-            previous_school: ""
-          },
-          familyBackground: {
-            father_first_name: "",
-            father_last_name: "",
-            mother_first_name: "",
-            mother_last_name: ""
-          },
-          medicalRecord: {
-            medical_conditions: ""
-          },
-          school: {
-            name: "",
-            address: ""
-          }
-        }} onSubmit={function (): void {
-          throw new Error("Function not implemented.");
-        } } />;
+        return <StudentApplication />;
     }
   };
 
@@ -106,7 +80,7 @@ export default function StudentApplicationForm() {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="max-w-3xl w-full mx-auto p-6 bg-white rounded-lg shadow-lg">
         
-        {/* Breadcrumb Navigation */}
+       
         <Breadcrumb>
           <BreadcrumbList>
             {steps.map((label, index) => (
