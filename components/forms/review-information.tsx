@@ -1,5 +1,7 @@
 import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 interface ReviewInformationProps {
   formData: {
@@ -69,70 +71,93 @@ interface ReviewInformationProps {
 
 const ReviewInformation: React.FC<ReviewInformationProps> = ({ formData, onSubmit }) => {
   return (
-    <div className="space-y-4">
-      <h3 className="text-xl font-semibold">Review Information</h3>
-      
-      {/* Student Details */}
-      <div>
-        <h4 className="font-semibold">Student Information</h4>
-        <p><strong>Name:</strong> {formData.student.first_name} {formData.student.middle_name ?? ''} {formData.student.last_name} {formData.student.suffix ?? ''}</p>
-        <p><strong>Gender:</strong> {formData.student.gender}</p>
-        <p><strong>Date of Birth:</strong> {formData.student.date_of_birth}</p>
-        <p><strong>Birth Place:</strong> {formData.student.birth_place}</p>
-        <p><strong>Nationality:</strong> {formData.student.nationality}</p>
-        <p><strong>Email:</strong> {formData.student.email}</p>
-        <p><strong>Phone Number:</strong> {formData.student.phone_number}</p>
-        <p><strong>Telephone Number:</strong> {formData.student.tel_number ?? 'N/A'}</p>
-        <p><strong>Religion:</strong> {formData.student.religion}</p>
-      </div>
-      
+    <div className="space-y-6">
+      <h3 className="text-2xl font-bold text-center">Review Your Information</h3>
+
+      {/* Student Information */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Student Information</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 gap-4">
+          <p><strong>Name:</strong> {formData.student.first_name} {formData.student.middle_name ?? ''} {formData.student.last_name} {formData.student.suffix ?? ''}</p>
+          <p><strong>Gender:</strong> {formData.student.gender}</p>
+          <p><strong>Date of Birth:</strong> {formData.student.date_of_birth}</p>
+          <p><strong>Birth Place:</strong> {formData.student.birth_place}</p>
+          <p><strong>Nationality:</strong> {formData.student.nationality}</p>
+          <p><strong>Email:</strong> {formData.student.email}</p>
+          <p><strong>Phone Number:</strong> {formData.student.phone_number}</p>
+          <p><strong>Telephone:</strong> {formData.student.tel_number || "N/A"}</p>
+          <p><strong>Religion:</strong> {formData.student.religion}</p>
+        </CardContent>
+      </Card>
+
       {/* Home Address */}
-      <div>
-        <h4 className="font-semibold">Home Address</h4>
-        <p><strong>Street:</strong> {formData.homeAddress.street}</p>
-        <p><strong>City:</strong> {formData.homeAddress.city}</p>
-        <p><strong>Province:</strong> {formData.homeAddress.province}</p>
-        <p><strong>Postal Code:</strong> {formData.homeAddress.postal_code}</p>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Home Address</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 gap-4">
+          <p><strong>Street:</strong> {formData.homeAddress.street}</p>
+          <p><strong>City:</strong> {formData.homeAddress.city}</p>
+          <p><strong>Province:</strong> {formData.homeAddress.province}</p>
+          <p><strong>Postal Code:</strong> {formData.homeAddress.postal_code}</p>
+        </CardContent>
+      </Card>
 
       {/* Family Background */}
-      <div>
-        <h4 className="font-semibold">Family Background</h4>
-        <p><strong>Father&apos;s Name:</strong> {formData.familyBackground.father_first_name ?? 'N/A'} {formData.familyBackground.father_last_name ?? ''}</p>
-        <p><strong>Mother&apos;s Name:</strong> {formData.familyBackground.mother_first_name ?? 'N/A'} {formData.familyBackground.mother_last_name ?? ''}</p>
-        <p><strong>Guardian&apos;s Name:</strong> {formData.familyBackground.guardian_first_name ?? 'N/A'} {formData.familyBackground.guardian_last_name ?? ''}</p>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Family Background</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 gap-4">
+          <p><strong>Father:</strong> {formData.familyBackground.father_first_name || "N/A"} {formData.familyBackground.father_last_name || ""}</p>
+          <p><strong>Mother:</strong> {formData.familyBackground.mother_first_name || "N/A"} {formData.familyBackground.mother_last_name || ""}</p>
+          <p><strong>Guardian:</strong> {formData.familyBackground.guardian_first_name || "N/A"} {formData.familyBackground.guardian_last_name || ""}</p>
+        </CardContent>
+      </Card>
 
       {/* Medical Record */}
-      <div>
-        <h4 className="font-semibold">Medical Record</h4>
-        <p><strong>Has Medical Condition:</strong> {formData.medicalRecord.has_medical_condition ? 'Yes' : 'No'}</p>
-        {formData.medicalRecord.has_medical_condition && (
-          <p><strong>Condition:</strong> {formData.medicalRecord.medical_condition}</p>
-        )}
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Medical Record</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p><strong>Has Medical Condition:</strong> {formData.medicalRecord.has_medical_condition ? "Yes" : "No"}</p>
+          {formData.medicalRecord.has_medical_condition && (
+            <p><strong>Condition:</strong> {formData.medicalRecord.medical_condition}</p>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Admission Details */}
-      <div>
-        <h4 className="font-semibold">Admission Details</h4>
-        <p><strong>Admission Type:</strong> {formData.admission.admission_type}</p>
-        <p><strong>Intended Grade Level:</strong> {formData.admission.intended_grade_level}</p>
-        <p><strong>Admission Status:</strong> {formData.admission.status}</p>
-        {formData.admission.previous_school && (
-          <div>
-            <h5 className="font-semibold mt-2">Previous School</h5>
-            <p><strong>Name:</strong> {formData.admission.previous_school.name}</p>
-            <p><strong>Address:</strong> {formData.admission.previous_school.address}</p>
-            <p><strong>Last Year Level:</strong> {formData.admission.previous_school.last_year_level ?? 'N/A'}</p>
-            <p><strong>Last School Year:</strong> {formData.admission.previous_school.last_school_year ?? 'N/A'}</p>
-            <p><strong>General Weighted Average:</strong> {formData.admission.previous_school.general_weighted_average ?? 'N/A'}</p>
-          </div>
-        )}
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Admission Details</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 gap-4">
+          <p><strong>Admission Type:</strong> {formData.admission.admission_type}</p>
+          <p><strong>Intended Grade Level:</strong> {formData.admission.intended_grade_level}</p>
+          <p><strong>Status:</strong> {formData.admission.status}</p>
+          {formData.admission.previous_school && (
+            <>
+              <Separator />
+              <h4 className="col-span-2 font-semibold">Previous School</h4>
+              <p><strong>Name:</strong> {formData.admission.previous_school.name}</p>
+              <p><strong>Address:</strong> {formData.admission.previous_school.address}</p>
+              <p><strong>Last Year Level:</strong> {formData.admission.previous_school.last_year_level || "N/A"}</p>
+              <p><strong>Last School Year:</strong> {formData.admission.previous_school.last_school_year || "N/A"}</p>
+              <p><strong>General Weighted Average:</strong> {formData.admission.previous_school.general_weighted_average || "N/A"}</p>
+            </>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Submit Button */}
-      <div className="mt-6 flex justify-end">
-        <Button onClick={onSubmit}>Submit</Button>
+      <div className="mt-6 flex justify-center">
+        <Button size="lg" onClick={onSubmit} className="px-6">
+          Submit Application
+        </Button>
       </div>
     </div>
   );

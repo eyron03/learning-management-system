@@ -16,6 +16,7 @@ import ParentGuardian from "@/components/forms/family-background";
 import MedicalRecord from "@/components/forms/medical-record";
 import School from "@/components/forms/school";
 import HomeAddressForm from "@/components/forms/home-address";
+import ReviewInformation from "@/components/forms/review-information"; // Import ReviewInformation
 import { useStudentApplication } from "@/hooks/useStudentApplication";
 
 const MemoizedStudentApplication = React.memo(StudentApplication);
@@ -24,6 +25,7 @@ const MemoizedParentGuardian = React.memo(ParentGuardian);
 const MemoizedMedicalRecord = React.memo(MedicalRecord);
 const MemoizedSchool = React.memo(School);
 const MemoizedHomeAddressForm = React.memo(HomeAddressForm);
+const MemoizedReviewInformation = React.memo(ReviewInformation);
 
 export default function StudentApplicationForm() {
   const steps = useMemo(() => [
@@ -35,6 +37,7 @@ export default function StudentApplicationForm() {
     "Admission",
     "Review Information"
   ], []);
+  
   const { step, formData, updateFormData, nextStep, prevStep, handleSubmit } = useStudentApplication();
 
   const renderStep = useMemo(() => {
@@ -45,7 +48,6 @@ export default function StudentApplicationForm() {
         return <MemoizedHomeAddressForm data={formData.homeAddress} onUpdate={(data) => updateFormData("homeAddress", data)} />;
       case 2:
         return <MemoizedSchool data={formData.school} onUpdate={(data) => updateFormData("school", data)} />;
-      
       case 3:
         return <MemoizedParentGuardian data={formData.parentGuardian} onUpdate={(data) => updateFormData("parentGuardian", data)} />;
       case 4:
@@ -53,11 +55,40 @@ export default function StudentApplicationForm() {
       case 5:
         return <MemoizedAdmission data={formData.admission} onUpdate={(data) => updateFormData("admission", data)} />;
       case 6:
-        return <pre className="p-4 bg-gray-100 rounded-md">{JSON.stringify(formData, null, 2)}</pre>;
+        return (
+          <MemoizedReviewInformation
+            formData={{
+              ...formData,
+              student: formData.studentApplication,
+              admission: {
+                ...formData.admission,
+                previous_school: {
+                  name: formData.admission.previous_school,
+                  address: "",
+                  last_year_level: "",
+                  last_school_year: "",
+                  general_weighted_average: 0
+                }
+              },
+              familyBackground: {
+                ...formData.parentGuardian,
+                father_annual_income: Number(formData.parentGuardian.father_annual_income),
+                mother_annual_income: Number(formData.parentGuardian.mother_annual_income),
+                guardian_annual_income: Number(formData.parentGuardian.guardian_annual_income)
+              },
+              medicalRecord: {
+                ...formData.medicalRecord,
+                medical_condition: formData.medicalRecord.medical_condition || "",
+                has_medical_condition: false
+              }
+            }}
+            onSubmit={handleSubmit}
+          />
+        );
       default:
         return <MemoizedStudentApplication data={formData.studentApplication} onUpdate={(data) => updateFormData("studentApplication", data)} />;
     }
-  }, [step, formData, updateFormData]);
+  }, [step, formData, updateFormData, handleSubmit]);
 
   if (step === null) {
     return (
