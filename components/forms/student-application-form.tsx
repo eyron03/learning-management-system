@@ -104,8 +104,8 @@ export default function StudentApplicationForm() {
         </div>
       </div>
     );
-  }adad
-adad
+  }
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="max-w-3xl w-full mx-auto p-6 bg-white rounded-lg shadow-lg">
