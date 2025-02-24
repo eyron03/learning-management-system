@@ -1,46 +1,69 @@
-// types/formData.ts
-
-export interface StudentApplicationData {
+export interface FormData {
+  student: {
+    control_no: string;
     first_name: string;
+    middle_name?: string;
     last_name: string;
-    setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-  }
-  
-  export interface AdmissionData {
+    suffix?: string;
+    gender: string;
+    date_of_birth: string;
+    birth_place: string;
+    nationality: string;
+    email: string;
+    phone_number: string;
+    tel_number?: string;
+    religion: string;
+  };
+  medicalRecord: {
+    has_medical_condition: boolean;
+    medical_condition?: string;
+  };
+  admission: {
     admission_type: string;
     intended_grade_level: string;
-    previous_school: string;
-    // Add other fields from the admission form
-  }
-  
-  export interface FamilyBackgroundData {
-    father_first_name: string;
-    father_last_name: string;
-    father_occupation: string;
-    mother_first_name: string;
-    mother_last_name: string;
-    mother_occupation: string;
-    guardian_first_name: string;
-    guardian_last_name: string;
-    // Add other fields from the family background form
-  }
-  
-  export interface MedicalRecordData {
-    medical_conditions: string;
-    // Add other fields from the medical record form
-  }
-  
-  export interface SchoolData {
+    previous_school_id?: string;
+  };
+  homeAddress: {
+    street: string;
+    city: string;
+    province: string;
+    postal_code: string;
+  };
+  familyBackground: {
+    father: {
+      first_name?: string;
+      middle_name?: string;
+      last_name?: string;
+      occupation?: string;
+      civil_status?: string;
+      annual_income?: number;
+      phone_number?: string;
+      deceased?: boolean;
+    };
+    mother: {
+      first_name?: string;
+      middle_name?: string;
+      last_name?: string;
+      occupation?: string;
+      civil_status?: string;
+      annual_income?: number;
+      phone_number?: string;
+      deceased?: boolean;
+    };
+    guardian: {
+      first_name?: string;
+      middle_name?: string;
+      last_name?: string;
+      occupation?: string;
+      annual_income?: number;
+      phone_number?: string;
+    };
+  };
+  school: {
     name: string;
     address: string;
-    // Add other fields from the school form
-  }
-  
-  export interface FormData {
-    student: StudentApplicationData;
-    admission: AdmissionData;
-    familyBackground: FamilyBackgroundData;
-    medicalRecord: MedicalRecordData;
-    school: SchoolData;
-  }
-  
+    last_year_level?: string;
+    last_school_year?: string;
+    general_weighted_average?: number;
+  };
+}

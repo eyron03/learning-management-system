@@ -15,9 +15,11 @@ import Admission from "@/components/forms/admission";
 import ParentGuardian from "@/components/forms/family-background";
 import MedicalRecord from "@/components/forms/medical-record";
 import School from "@/components/forms/school";
+import HomeAddressForm from "./home-address";
 
 const steps = [
   "Student Application",
+  "Home Address",
   "Admission",
   "Family Background",
   "Medical Record",
@@ -28,7 +30,8 @@ const steps = [
 export default function StudentApplicationForm() {
   const [step, setStep] = useState<number | null>(null);
 
-  // Simulate loading
+
+  
   useEffect(() => {
     setTimeout(() => setStep(0), 1000);
   }, []);
@@ -41,12 +44,14 @@ export default function StudentApplicationForm() {
       case 0:
         return <StudentApplication />;
       case 1:
-        return <Admission />;
-      case 2:
-        return <ParentGuardian />;
+        return <HomeAddressForm studentApplicationId="some-id" />;
+        case 2:
+          return <Admission />;
       case 3:
-        return <MedicalRecord />;
+        return <ParentGuardian />;
       case 4:
+        return <MedicalRecord />;
+      case 5:
         return <School />;
       default:
         return <StudentApplication />;
