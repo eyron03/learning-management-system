@@ -1,20 +1,38 @@
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
-export default function MedicalRecordForm() {
+interface MedicalRecordFormProps {
+  data: {
+    medical_condition: string;
+  };
+  onUpdate: (updatedData: Partial<MedicalRecordFormProps["data"]>) => void;
+}
 
-  const [hasMedicalCondition, setHasMedicalCondition] = useState(false);
-  const [formData, setFormData] = useState({
-    medical_condition: "",
-  });
+export default function MedicalRecordForm({ data, onUpdate }: MedicalRecordFormProps) {
+  const [hasMedicalCondition, setHasMedicalCondition] = useState(!!data.medical_condition);
+  const [formData, setFormData] = useState(data);
+
+  useEffect(() => {
+    setFormData(data);
+    setHasMedicalCondition(!!data.medical_condition);
+  }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const updatedData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(updatedData);
+    onUpdate(updatedData);
   };
 
-
+  const handleCheckboxChange = (checked: boolean) => {
+    setHasMedicalCondition(checked);
+    if (!checked) {
+      const updatedData = { ...formData, medical_condition: "" };
+      setFormData(updatedData);
+      onUpdate(updatedData);
+    }
+  };
 
   return (
     <div>
@@ -24,7 +42,7 @@ export default function MedicalRecordForm() {
         <Checkbox
           id="hasMedicalCondition"
           checked={hasMedicalCondition}
-          onCheckedChange={(checked) => setHasMedicalCondition(checked === true)}
+          onCheckedChange={(checked) => handleCheckboxChange(checked === true)}
         />
         <Label htmlFor="hasMedicalCondition">Do you have any medical condition?</Label>
       </div>
@@ -38,8 +56,6 @@ export default function MedicalRecordForm() {
           className="mb-2"
         />
       )}
-
-
     </div>
   );
 }

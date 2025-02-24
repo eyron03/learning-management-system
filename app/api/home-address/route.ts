@@ -15,8 +15,8 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const newhomeAddress = await homeAddressData.create(body);
-    return NextResponse.json(newhomeAddress, { status: 201 });
+    const newHomeAddress = await homeAddressData.create(body);
+    return NextResponse.json(newHomeAddress, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }

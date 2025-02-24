@@ -1,17 +1,28 @@
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function AdmissionForm() {
-  const [formData, setFormData] = useState({
-    admission_type: "",
-    intended_grade_level: "",
-    previous_school: "",
-    previous_school_id: "",
-    status: "PENDING",
-  });
+interface AdmissionFormProps {
+  data: {
+    admission_type: string;
+    intended_grade_level: string;
+    previous_school: string;
+    previous_school_id: string;
+    status: string;
+  };
+  onUpdate: (updatedData: Partial<AdmissionFormProps["data"]>) => void;
+}
+
+export default function AdmissionForm({ data, onUpdate }: AdmissionFormProps) {
+  const [formData, setFormData] = useState(data);
+
+  useEffect(() => {
+    setFormData(data);
+  }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const updatedData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(updatedData);
+    onUpdate(updatedData);
   };
 
   return (
@@ -41,9 +52,22 @@ export default function AdmissionForm() {
         onChange={handleChange}
         className="mb-2"
       />
-     
       
+      <Input
+        name="previous_school_id"
+        placeholder="Previous School ID"
+        value={formData.previous_school_id}
+        onChange={handleChange}
+        className="mb-2"
+      />
       
+      <Input
+        name="status"
+        placeholder="Status"
+        value={formData.status}
+        onChange={handleChange}
+        className="mb-2"
+      />
     </div>
   );
 }

@@ -1,64 +1,61 @@
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
+interface MedicalRecordFormProps {
+  data: {
+    medical_condition: string;
+  };
+  onUpdate: (updatedData: Partial<MedicalRecordFormProps["data"]>) => void;
+}
 
-export default function SchoolForm() {
+export default function MedicalRecordForm({ data, onUpdate }: MedicalRecordFormProps) {
+  const [hasMedicalCondition, setHasMedicalCondition] = useState(!!data.medical_condition);
+  const [formData, setFormData] = useState(data);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    last_year_level: "",
-    last_school_year: "",
-    general_weighted_average: "",
-  });
+  useEffect(() => {
+    setFormData(data);
+    setHasMedicalCondition(!!data.medical_condition);
+  }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const updatedData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(updatedData);
+    onUpdate(updatedData);
   };
 
+  const handleCheckboxChange = (checked: boolean) => {
+    setHasMedicalCondition(checked);
+    if (!checked) {
+      const updatedData = { ...formData, medical_condition: "" };
+      setFormData(updatedData);
+      onUpdate(updatedData);
+    }
+  };
 
   return (
-    <div >
-      <h2 className="text-xl font-semibold mb-4">School Information</h2>
+    <div>
+      <h2 className="text-xl font-semibold mb-4">Medical Record</h2>
 
-      <Input
-        name="name"
-        placeholder="School Name"
-        value={formData.name}
-        onChange={handleChange}
-        className="mb-2"
-      />
-      <Input
-        name="address"
-        placeholder="School Address"
-        value={formData.address}
-        onChange={handleChange}
-        className="mb-2"
-      />
-      <Input
-        name="last_year_level"
-        placeholder="Last Year Level"
-        value={formData.last_year_level}
-        onChange={handleChange}
-        className="mb-2"
-      />
-      <Input
-        name="last_school_year"
-        placeholder="Last School Year"
-        value={formData.last_school_year}
-        onChange={handleChange}
-        className="mb-2"
-      />
-      <Input
-        name="general_weighted_average"
-        type="number"
-        placeholder="General Weighted Average"
-        value={formData.general_weighted_average}
-        onChange={handleChange}
-        className="mb-2"
-      />
+      <div className="flex items-center space-x-2 mb-4">
+        <Checkbox
+          id="hasMedicalCondition"
+          checked={hasMedicalCondition}
+          onCheckedChange={(checked) => handleCheckboxChange(checked === true)}
+        />
+        <Label htmlFor="hasMedicalCondition">Do you have any medical condition?</Label>
+      </div>
 
-      
+      {hasMedicalCondition && (
+        <Input
+          name="medical_condition"
+          placeholder="Medical Condition"
+          value={formData.medical_condition}
+          onChange={handleChange}
+          className="mb-2"
+        />
+      )}
     </div>
   );
 }
