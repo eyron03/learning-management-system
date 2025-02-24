@@ -101,7 +101,7 @@ export default function StudentApplicationForm() {
        
         <div className="mt-6">{renderStep()}</div>
   
-        {/* Navigation Buttons */}
+     
         <div className="flex justify-between mt-6">
           <Button onClick={prevStep} disabled={step === 0} variant="outline">
             Previous
