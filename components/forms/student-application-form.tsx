@@ -98,7 +98,7 @@ export default function StudentApplicationForm() {
           </BreadcrumbList>
         </Breadcrumb>
   
-        {/* Step Content */}
+       
         <div className="mt-6">{renderStep()}</div>
   
         {/* Navigation Buttons */}
