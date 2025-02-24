@@ -1,3 +1,4 @@
+import { AdmissionStatus, AdmissionType, CivilStatus } from "@/helpers/enums";
 import { useState, useEffect } from "react";
 
 const initialFormData = {
@@ -24,12 +25,12 @@ const initialFormData = {
     postal_code: "",
     student_application_id: ""
   },
-  admission: {
-    admission_type: "",
-    intended_grade_level: "",
-    previous_school: "",
-    previous_school_id: "",
-    status: ""
+  school: {
+    name: "",
+    address: "",
+    last_year_level: "",
+    last_school_year: "",
+    general_weighted_average: ""
   },
   parentGuardian: {
     father_first_name: "",
@@ -38,6 +39,7 @@ const initialFormData = {
     father_occupation: "",
     father_annual_income: "",
     father_phone_number: "",
+    father_civil_status: "" as CivilStatus,
     father_deceased: false,
     mother_first_name: "",
     mother_middle_name: "",
@@ -45,6 +47,7 @@ const initialFormData = {
     mother_occupation: "",
     mother_annual_income: "",
     mother_phone_number: "",
+    mother_civil_status: "" as CivilStatus,
     mother_deceased: false,
     guardian_first_name: "",
     guardian_middle_name: "",
@@ -56,8 +59,13 @@ const initialFormData = {
   medicalRecord: {
     medical_condition: ""
   },
-  school: {
-    medical_condition: ""
+
+  admission: {
+    admission_type: "default" as AdmissionType,
+    intended_grade_level: "",
+    previous_school: "",
+    previous_school_id: "",
+    status: "pending" as AdmissionStatus
   }
 };
 

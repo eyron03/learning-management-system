@@ -1,22 +1,22 @@
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 
-interface MedicalRecordFormProps {
+interface SchoolFormProps {
   data: {
-    medical_condition: string;
+    name: string;
+    address: string;
+    last_year_level: string;
+    last_school_year: string;
+    general_weighted_average: string;
   };
-  onUpdate: (updatedData: Partial<MedicalRecordFormProps["data"]>) => void;
+  onUpdate: (updatedData: Partial<SchoolFormProps["data"]>) => void;
 }
 
-export default function MedicalRecordForm({ data, onUpdate }: MedicalRecordFormProps) {
-  const [hasMedicalCondition, setHasMedicalCondition] = useState(!!data.medical_condition);
+export default function SchoolForm({ data, onUpdate }: SchoolFormProps) {
   const [formData, setFormData] = useState(data);
 
   useEffect(() => {
     setFormData(data);
-    setHasMedicalCondition(!!data.medical_condition);
   }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,37 +25,49 @@ export default function MedicalRecordForm({ data, onUpdate }: MedicalRecordFormP
     onUpdate(updatedData);
   };
 
-  const handleCheckboxChange = (checked: boolean) => {
-    setHasMedicalCondition(checked);
-    if (!checked) {
-      const updatedData = { ...formData, medical_condition: "" };
-      setFormData(updatedData);
-      onUpdate(updatedData);
-    }
-  };
-
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Medical Record</h2>
+      <h2 className="text-xl font-semibold mb-4">School Information</h2>
 
-      <div className="flex items-center space-x-2 mb-4">
-        <Checkbox
-          id="hasMedicalCondition"
-          checked={hasMedicalCondition}
-          onCheckedChange={(checked) => handleCheckboxChange(checked === true)}
-        />
-        <Label htmlFor="hasMedicalCondition">Do you have any medical condition?</Label>
-      </div>
+      <Input
+        name="name"
+        placeholder="School Name"
+        value={formData.name}
+        onChange={handleChange}
+        className="mb-2"
+      />
 
-      {hasMedicalCondition && (
-        <Input
-          name="medical_condition"
-          placeholder="Medical Condition"
-          value={formData.medical_condition}
-          onChange={handleChange}
-          className="mb-2"
-        />
-      )}
+      <Input
+        name="address"
+        placeholder="School Address"
+        value={formData.address}
+        onChange={handleChange}
+        className="mb-2"
+      />
+
+      <Input
+        name="last_year_level"
+        placeholder="Last Year Level Attended"
+        value={formData.last_year_level}
+        onChange={handleChange}
+        className="mb-2"
+      />
+
+      <Input
+        name="last_school_year"
+        placeholder="Last School Year Attended"
+        value={formData.last_school_year}
+        onChange={handleChange}
+        className="mb-2"
+      />
+
+      <Input
+        name="general_weighted_average"
+        placeholder="General Weighted Average"
+        value={formData.general_weighted_average}
+        onChange={handleChange}
+        className="mb-2"
+      />
     </div>
   );
 }

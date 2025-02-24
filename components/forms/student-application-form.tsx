@@ -29,10 +29,10 @@ export default function StudentApplicationForm() {
   const steps = useMemo(() => [
     "Student Application",
     "Home Address",
-    "Admission",
+    "School Information",
     "Family Background",
     "Medical Record",
-    "School Information",
+    "Admission",
     "Review Information"
   ], []);
   const { step, formData, updateFormData, nextStep, prevStep, handleSubmit } = useStudentApplication();
@@ -44,13 +44,14 @@ export default function StudentApplicationForm() {
       case 1:
         return <MemoizedHomeAddressForm data={formData.homeAddress} onUpdate={(data) => updateFormData("homeAddress", data)} />;
       case 2:
-        return <MemoizedAdmission data={formData.admission} onUpdate={(data) => updateFormData("admission", data)} />;
+        return <MemoizedSchool data={formData.school} onUpdate={(data) => updateFormData("school", data)} />;
+      
       case 3:
         return <MemoizedParentGuardian data={formData.parentGuardian} onUpdate={(data) => updateFormData("parentGuardian", data)} />;
       case 4:
         return <MemoizedMedicalRecord data={formData.medicalRecord} onUpdate={(data) => updateFormData("medicalRecord", data)} />;
       case 5:
-        return <MemoizedSchool data={formData.school} onUpdate={(data) => updateFormData("school", data)} />;
+        return <MemoizedAdmission data={formData.admission} onUpdate={(data) => updateFormData("admission", data)} />;
       case 6:
         return <pre className="p-4 bg-gray-100 rounded-md">{JSON.stringify(formData, null, 2)}</pre>;
       default:
