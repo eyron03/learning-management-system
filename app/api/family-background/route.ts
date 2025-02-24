@@ -19,6 +19,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(newFamily, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
-  }
+  }//
 }
 
