@@ -60,14 +60,14 @@ export async function POST(req: NextRequest) {
                     address: school.address,
                     last_year_level: school.last_year_level,
                     last_school_year: school.last_school_year,
-                    general_weighted_average: parseFloat(school.general_weighted_average), // Convert string to float
+                    general_weighted_average: parseFloat(school.general_weighted_average), 
                   },
                 }
-              : undefined, // Only create school if previous_school is provided
+              : undefined,
           },
         },
 
-        // Create related family background
+
         family_background: {
           create: {
             father_first_name: parentGuardian.father_first_name || null,
@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
           },
         },
 
-        // Create medical record if provided
+        
         medical_record: medicalRecord.medical_condition
           ? {
               create: {
