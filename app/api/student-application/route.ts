@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
                 medical_condition: medicalRecord.medical_condition,
               },
             }
-          : undefined, // Don't create medical record if no condition is provided
+          : undefined, 
       },
     });
 
