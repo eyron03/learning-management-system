@@ -127,7 +127,8 @@ export default function ParentGuardianForm({ data, onUpdate }: ParentGuardianFor
         </div>
       </div>
 
-      {/* Mother Fields */}
+      
+      
       <h3 className="font-semibold mb-2 text-center">Mother Information</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="col-span-1">
