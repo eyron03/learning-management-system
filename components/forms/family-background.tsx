@@ -206,7 +206,6 @@ export default function ParentGuardianForm({ data, onUpdate }: ParentGuardianFor
         </div>
       </div>
 
-      {/* Guardian Fields */}
       {showGuardianForm && (
         <div className="space-y-4">
           <h3 className="font-semibold mb-4 text-center">Guardian Information</h3>
