@@ -10,7 +10,7 @@ interface AdmissionFormProps {
     previous_school: string;
     status: AdmissionStatus;
   };
-  schools?: { id: string; name: string }[]; // Make schools optional
+  schools?: { id: string; name: string }[]; 
   onUpdate: (updatedData: Partial<AdmissionFormProps["data"]>) => void;
 }
 
