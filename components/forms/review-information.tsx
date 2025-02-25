@@ -151,7 +151,6 @@ const ReviewInformation: React.FC<ReviewInformationProps> = ({ formData, onSubmi
         </CardContent>
       </Card>
 
-      {/* Submit Button */}
       <div className="mt-6 flex justify-center">
         <Button size="lg" onClick={onSubmit} className="px-6">
           Submit Application
