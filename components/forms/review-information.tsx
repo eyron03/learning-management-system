@@ -116,7 +116,7 @@ const ReviewInformation: React.FC<ReviewInformationProps> = ({ formData, onSubmi
         </CardContent>
       </Card>
 
-      {/* Medical Record */}
+      
       <Card>
         <CardHeader>
           <CardTitle>Medical Record</CardTitle>
