@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
         last_name: studentApplication.last_name,
         suffix: studentApplication.suffix || null,
         gender: studentApplication.gender,
-        date_of_birth: new Date(studentApplication.date_of_birth), // Ensure date format
+        date_of_birth: new Date(studentApplication.date_of_birth), 
         birth_place: studentApplication.birth_place,
         nationality: studentApplication.nationality,
         email: studentApplication.email,
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         tel_number: studentApplication.tel_number || null,
         religion: studentApplication.religion,
 
-        // Create related home address
+        
         home_address: {
           create: {
             street: homeAddress.street,
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
           },
         },
 
-        // Create related school entry
+        
         admission: {
           create: {
             admission_type: admission.admission_type,
