@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
-import { AdmissionType, AdmissionStatus } from "@/helpers/enums"; // Ensure these enums exist
+import { AdmissionType, AdmissionStatus } from "@/helpers/enums";
 
 interface AdmissionFormProps {
   data: {
