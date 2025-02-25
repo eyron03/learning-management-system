@@ -91,7 +91,7 @@ const ReviewInformation: React.FC<ReviewInformationProps> = ({ formData, onSubmi
         </CardContent>
       </Card>
 
-      {/* Home Address */}
+     
       <Card>
         <CardHeader>
           <CardTitle>Home Address</CardTitle>
