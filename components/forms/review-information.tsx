@@ -129,7 +129,6 @@ const ReviewInformation: React.FC<ReviewInformationProps> = ({ formData, onSubmi
         </CardContent>
       </Card>
 
-      {/* Admission Details */}
       <Card>
         <CardHeader>
           <CardTitle>Admission Details</CardTitle>
