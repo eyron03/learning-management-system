@@ -16,12 +16,11 @@ export async function POST(req: NextRequest) {
       admission
     } = body;
 
-    // Validate required fields
+    
     if (!studentApplication || !homeAddress || !school || !parentGuardian || !admission) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // Create the student application entry
     const newStudentApplication = await prisma.studentApplication.create({
       data: {
         control_no: studentApplication.control_no,
