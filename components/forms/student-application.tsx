@@ -1,78 +1,58 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
-import { NameSuffix, CivilStatus } from "@/helpers/enums";
+import { NameSuffix } from "@/helpers/enums";
 import { generateControlNo } from "@/lib/functions/generateControlNo";
 
 const genderOptions = ["Male", "Female"];
 
-export default function StudentApplication() {
-  const [formData, setFormData] = useState({
-    control_no: "",
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    suffix: "",
-    gender: "",
-    civil_status: "",
-    date_of_birth: "",
-    birth_place: "",
-    nationality: "",
-    email: "",
-    phone_number: "",
-    tel_number: "",
-    permanent_address: "",
-    current_address: "",
-    postal_code: "",
-    religion: ""
-  });
+interface StudentApplicationProps {
+  data: {
+    control_no: string;
+    first_name: string;
+    middle_name: string;
+    last_name: string;
+    suffix: string;
+    gender: string;
+    date_of_birth: string;
+    birth_place: string;
+    nationality: string;
+    email: string;
+    phone_number: string;
+    tel_number: string;
+    religion: string;
+  };
+  onUpdate: (data: Partial<StudentApplicationProps["data"]>) => void;
+}
 
+export default function StudentApplication({ data, onUpdate }: StudentApplicationProps) {
   useEffect(() => {
     async function fetchControlNo() {
       const controlNo = await generateControlNo(0); // Replace 0 with the appropriate latest number
-      setFormData((prevData) => ({ ...prevData, control_no: controlNo }));
+      onUpdate({ control_no: controlNo });
     }
-    fetchControlNo();
-  }, []);
+    if (!data.control_no) {
+      fetchControlNo();
+    }
+  }, [data.control_no, onUpdate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    onUpdate({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("/api/student-application", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Application submitted successfully:", data);
-      } else {
-        console.error("Failed to submit application:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error submitting application:", error);
-    }
+    onUpdate({ ...data, [name]: value });
   };
 
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4 text-center">Student Application</h2>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="grid grid-cols-2 gap-4">
-          <Input name="control_no" value={formData.control_no} readOnly />
-          <Input name="first_name" placeholder="First Name" onChange={handleChange} />
-          <Input name="middle_name" placeholder="Middle Name (Optional)" onChange={handleChange} />
-          <Input name="last_name" placeholder="Last Name" onChange={handleChange} />
+          <Input name="control_no" value={data.control_no} readOnly />
+          <Input name="first_name" placeholder="First Name" value={data.first_name} onChange={handleChange} />
+          <Input name="middle_name" placeholder="Middle Name (Optional)" value={data.middle_name} onChange={handleChange} />
+          <Input name="last_name" placeholder="Last Name" value={data.last_name} onChange={handleChange} />
 
           <Select onValueChange={(value) => handleSelectChange("suffix", value === "none" ? "" : value)}>
             <SelectTrigger>
@@ -97,29 +77,15 @@ export default function StudentApplication() {
             </SelectContent>
           </Select>
 
-          <Select onValueChange={(value) => handleSelectChange("civil_status", value)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Civil Status" />
-            </SelectTrigger>
-            <SelectContent>
-              {Object.values(CivilStatus).map((status) => (
-                <SelectItem key={status} value={status}>{status}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Input name="date_of_birth" type="date" value={data.date_of_birth} placeholder="Date of Birth" onChange={handleChange} />
+          <Input name="birth_place" placeholder="Birth Place" value={data.birth_place} onChange={handleChange} />
+          <Input name="nationality" placeholder="Nationality" value={data.nationality} onChange={handleChange} />
+          <Input name="email" type="email" placeholder="Email" value={data.email} onChange={handleChange} />
 
-          <Input name="date_of_birth" type="date" placeholder="Date of Birth" onChange={handleChange} />
-          <Input name="birth_place" placeholder="Birth Place" onChange={handleChange} />
-          <Input name="nationality" placeholder="Nationality" onChange={handleChange} />
-          <Input name="email" type="email" placeholder="Email" onChange={handleChange} />
-          <Input name="permanent_address" placeholder="Permanent Address" onChange={handleChange} />
-          <Input name="current_address" placeholder="Current Address" onChange={handleChange} />
-          <Input name="postal_code" placeholder="Postal Code" onChange={handleChange} />
-          <Input name="phone_number" placeholder="Phone Number" onChange={handleChange} />
-          <Input name="tel_number" placeholder="Telephone Number (Optional)" onChange={handleChange} />
-          <Input name="religion" placeholder="Religion" onChange={handleChange} />
+          <Input name="phone_number" placeholder="Phone Number" value={data.phone_number} onChange={handleChange} />
+          <Input name="tel_number" placeholder="Telephone Number (Optional)" value={data.tel_number} onChange={handleChange} />
+          <Input name="religion" placeholder="Religion" value={data.religion} onChange={handleChange} />
         </div>
-        <button type="submit" className="mt-4 btn btn-primary">Submit Application</button>
       </form>
     </div>
   );
