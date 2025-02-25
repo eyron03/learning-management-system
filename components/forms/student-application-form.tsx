@@ -16,7 +16,7 @@ import ParentGuardian from "@/components/forms/family-background";
 import MedicalRecord from "@/components/forms/medical-record";
 import School from "@/components/forms/school";
 import HomeAddressForm from "@/components/forms/home-address";
-import ReviewInformation from "@/components/forms/review-information"; // Import ReviewInformation
+import ReviewInformation from "@/components/forms/review-information"; 
 import { useStudentApplication } from "@/hooks/useStudentApplication";
 
 const MemoizedStudentApplication = React.memo(StudentApplication);
