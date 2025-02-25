@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     console.log("Received body:", body); // Debugging
 
-    // Destructure fields from the request body
+    
     const {
       studentApplication,
       homeAddress,
