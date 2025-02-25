@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
           create: {
             admission_type: admission.admission_type,
             intended_grade_level: admission.intended_grade_level,
-            status: admission.status.toUpperCase() as AdmissionStatus, // Ensure enum compatibility
+            status: admission.status.toUpperCase() as AdmissionStatus, 
             previous_school: admission.previous_school
               ? {
                   create: {
