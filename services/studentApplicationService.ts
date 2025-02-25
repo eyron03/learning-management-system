@@ -9,7 +9,6 @@ import {
 import { NameSuffix, AdmissionType, AdmissionStatus, CivilStatus } from "@/helpers/enums";
 const prisma = new PrismaClient();
 
-// Create a new student application
 export async function createStudentApplication(data: StudentApplicationData) {
   try {
     return await prisma.studentApplication.create({
