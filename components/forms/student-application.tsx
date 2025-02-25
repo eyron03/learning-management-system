@@ -28,7 +28,7 @@ interface StudentApplicationProps {
 export default function StudentApplication({ data, onUpdate }: StudentApplicationProps) {
   useEffect(() => {
     async function fetchControlNo() {
-      const controlNo = await generateControlNo(0); // Replace 0 with the appropriate latest number
+      const controlNo = await generateControlNo(0); 
       onUpdate({ control_no: controlNo });
     }
     if (!data.control_no) {
