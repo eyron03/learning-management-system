@@ -43,7 +43,7 @@ export default function AdmissionForm({ data, schools = [], onUpdate }: Admissio
         </SelectContent>
       </Select>
 
-      {/* Intended Grade Level */}
+  
       <Input
         name="intended_grade_level"
         placeholder="Intended Grade Level"
