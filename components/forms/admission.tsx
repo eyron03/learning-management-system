@@ -31,7 +31,7 @@ export default function AdmissionForm({ data, schools = [], onUpdate }: Admissio
     <div>
       <h2 className="text-xl font-semibold mb-4">Admission Details</h2>
 
-      {/* Admission Type (Enum) */}
+      
       <Select onValueChange={(value) => handleChange("admission_type", value)}>
         <SelectTrigger>
           <SelectValue placeholder="Select Admission Type" />
