@@ -104,7 +104,7 @@ const ReviewInformation: React.FC<ReviewInformationProps> = ({ formData, onSubmi
         </CardContent>
       </Card>
 
-      {/* Family Background */}
+      
       <Card>
         <CardHeader>
           <CardTitle>Family Background</CardTitle>
