@@ -74,7 +74,6 @@ const ReviewInformation: React.FC<ReviewInformationProps> = ({ formData, onSubmi
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-center">Review Your Information</h3>
 
-      {/* Student Information */}
       <Card>
         <CardHeader>
           <CardTitle>Student Information</CardTitle>
