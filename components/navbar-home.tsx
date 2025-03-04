@@ -68,7 +68,7 @@ export function Navbar() {
     </header>
   )
 }
-ewewsasasasa
+
 interface MobileLinkProps extends React.ComponentPropsWithoutRef<"a"> {
   onOpenChange?: (open: boolean) => void
   children: React.ReactNode
